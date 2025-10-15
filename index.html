@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jayanth C – AI Portfolio</title>
+
+  <!-- Tailwind & AOS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@400;600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #050a0f;
+      --card: rgba(10, 20, 25, 0.85);
+      --muted: #9aa7b3;
+      --accent1: #00ffe1;
+      --accent2: #00b3ff;
+      --neon: #0fffc6;
+      --glass-border: rgba(0, 255, 255, 0.14);
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      background: var(--bg);
+      color: #e6f0ff;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    header {
+      backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.35);
+      border-bottom: 1px solid var(--glass-border);
+      position: fixed;
+      width: 100%;
+      z-index: 40
+    }
+
+    nav.container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px
+    }
+
+    .brand {
+      font-family: "Orbitron", sans-serif;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700
+    }
+
+    a.nav-link {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s
+    }
+
+    a.nav-link:hover {
+      color: var(--accent1)
+    }
+
+    /* Vanta background container */
+    #vanta-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -10
+    }
+
+    /* Neon heading */
+    .neon {
+      color: var(--neon);
+      text-shadow: 0 0 8px var(--neon), 0 0 28px var(--accent2);
+      font-family: "Orbitron", sans-serif;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 600% 600%;
+      animation: gradMove 6s ease infinite;
+    }
+
+    @keyframes gradMove {
+      0% {
+        background-position: 0% 50%
+      }
+
+      50% {
+        background-position: 100% 50%
+      }
+
+      100% {
+        background-position: 0% 50%
+      }
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      padding: 20px;
+      transition: transform .35s, box-shadow .35s;
+      box-shadow: 0 6px 28px rgba(0, 0, 0, 0.6);
+    }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.01);
+      box-shadow: 0 20px 60px rgba(0, 180, 255, 0.12);
+    }
+
+    /* Project card neon outline */
+    .project-card {
+      position: relative;
+      overflow: hidden
+    }
+
+    .project-card::after {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      filter: blur(18px);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .project-card:hover::after {
+      opacity: 1
+    }
+
+    /* Buttons */
+    .btn {
+      font-family: "Orbitron", sans-serif;
+      padding: 10px 14px;
+      border-radius: 10px;
+      display: inline-block;
+      text-align: center
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      color: #001;
+      box-shadow: 0 6px 24px rgba(0, 179, 255, 0.12)
+    }
+
+    .btn-secondary {
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--accent1);
+      background: transparent
+    }
+
+    .btn:hover {
+      transform: scale(1.03)
+    }
+
+    /* Skills layout */
+    .skill-badge {
+      background: rgba(255, 255, 255, 0.04);
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.9rem
+    }
+
+    .progress {
+      height: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 999px;
+      overflow: hidden
+    }
+
+    .progress>i {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      transition: width 1.2s ease
+    }
+
+    /* Sections */
+    section {
+      padding: 80px 20px
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto
+    }
+
+    /* Footer */
+    footer {
+      padding: 28px 0;
+      text-align: center;
+      color: var(--muted);
+      border-top: 1px solid rgba(0, 255, 255, 0.05)
+    }
+
+    /* Responsive */
+    @media (max-width:900px) {
+      nav.container {
+        padding: 12px
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(1, 1fr)
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Vanta NET background (neural/cyber) -->
+  <div id="vanta-bg"></div>
+
+  <!-- NAV -->
+  <header>
+    <nav class="container">
+      <div class="brand">Jayanth C</div>
+      <div class="hidden md:flex gap-6 items-center">
+        <a class="nav-link" href="#home">Home</a>
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#skills">Skills</a>
+        <a class="nav-link" href="#projects">Projects</a>
+        <a class="nav-link" href="#blog">Blog</a>
+        <a class="nav-link" href="#education">Education</a>
+        <a class="nav-link" href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="pt-28 relative z-10">
+    <!-- HERO -->
+    <section id="home">
+      <div class="container text-center" data-aos="fade-up">
+        <h1 class="neon text-5xl md:text-7xl font-extrabold mb-4">Jayanth C</h1>
+        <p class="text-lg" style="color:var(--muted)">AI Developer • Full-stack • Explainable ML enthusiast</p>
+        <div class="mt-6 flex justify-center gap-4">
+          <a href="https://github.com/JayanthC6" class="btn btn-primary">GitHub</a>
+          <a href="https://www.linkedin.com/in/jayanthc18/" class="btn btn-primary">LinkedIn</a>
+          <a href="mail-Id:iconicno18@gmail.com" class="btn btn-secondary">Email</a>
+          <a href="jayant_resume (2).pdf" class="btn btn-secondary" download>Download Resume</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="container" data-aos="fade-up">
+        <h2 class="text-3xl font-bold gradient-text mb-6 text-center">About Me</h2>
+        <p style="color:var(--muted); max-width:760px; margin:0 auto; line-height:1.6;">
+          I'm Jayanth C, a passionate AI developer and final-year MCA student at Bangalore Institute of Technology. I
+          specialize in building intelligent applications using Python, Flask, and deep learning frameworks like
+          TensorFlow and PyTorch. My current focus is on Explainable AI, aiming to create models that are not only
+          accurate but also interpretable and trustworthy. I enjoy working on real-world problems, collaborating with
+          teams, and continuously learning new technologies. When I'm not coding, I love reading about the latest AI
+          research and exploring new tech trends.
+        </p>
+      </div>
+
+      <!-- SKILLS -->
+      <section id="skills">
+        <div class="container" data-aos="fade-right">
+          <h2 class="text-3xl font-bold gradient-text mb-6 text-center">Skills</h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Programming Languages -->
+            <div class="card">
+              <h3 class="font-semibold mb-3">Programming Languages</h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="skill-badge">Python</span>
+                <span class="skill-badge">Java</span>
+                <span class="skill-badge">C</span>
+                <span class="skill-badge">JavaScript</span>
+                <span class="skill-badge">HTML/CSS</span>
+                <span class="skill-badge">SQL</span>
+              </div>
+
+              <div class="mt-4 space-y-3">
+                <div>
+                  <div class="flex justify-between text-sm"><span>Python (ML & Backend)</span><span
+                      style="color:var(--muted)"></span></div>
+                  <div class="progress mt-2"><i style="width:100%"></i></div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-sm"><span>C Programming</span><span
+                      style="color:var(--muted)"></span></div>
+                  <div class="progress mt-2"><i style="width:100%"></i></div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-sm"><span>JavaScript / React</span><span
+                      style="color:var(--muted)"></span></div>
+                  <div class="progress mt-2"><i style="width:100%"></i></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tools -->
+            <div class="card">
+              <h3 class="font-semibold mb-3">Tools & Frameworks</h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="skill-badge">Flask</span>
+                <span class="skill-badge">Django</span>
+                <span class="skill-badge">TensorFlow / PyTorch</span>
+                <span class="skill-badge">MySQL</span>
+                <span class="skill-badge">Git & GitHub</span>
+                <span class="skill-badge">Tableau</span>
+                <span class="skill-badge">VS Code</span>
+              </div>
+
+              <div class="mt-4 space-y-3">
+                <div>
+                  <div class="flex justify-between text-sm"><span>Flask / Backend</span><span
+                      style="color:var(--muted)"></span></div>
+                  <div class="progress mt-2"><i style="width:100%"></i></div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-sm"><span>Deep Learning</span><span
+                      style="color:var(--muted)"></span></div>
+                  <div class="progress mt-2"><i style="width:100%"></i></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Soft Skills -->
+            <div class="card">
+              <h3 class="font-semibold mb-3">Soft Skills</h3>
+              <ul class="text-sm" style="color:var(--muted);">
+                <li class="mb-2">Problem Solving & Analytical Thinking</li>
+                <li class="mb-2">Team Collaboration & Communication</li>
+                <li class="mb-2">Research & Literature Review</li>
+                <li class="mb-2">Product-oriented Development Mindset</li>
+                <li class="mb-2">Time Management & Iterative Delivery</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS SECTION (Updated and Fixed) -->
+      <section id="projects" class="relative z-20 py-20">
+        <div class="container mx-auto px-6" data-aos="fade-up">
+          <h2 class="text-4xl font-bold gradient-text mb-12 text-center">Projects</h2>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Neurosymbolic AI -->
+            <div
+              class="project-card card bg-[#0a0f14cc] border border-cyan-800/30 hover:border-cyan-400/50 transition-all">
+              <h3 class="font-semibold gradient-text mb-2">🧠 Neurosymbolic AI for Explainable Brain Tumor Diagnosis
+              </h3>
+              <p class="text-sm text-gray-300 mb-4">
+                Final-year MCA project combining CNNs and symbolic reasoning to produce explainable brain tumor
+                diagnoses
+                from MRI scans.
+                <strong>Status:</strong> In Progress.
+              </p>
+              <div class="flex gap-3">
+                <button class="btn btn-primary flex-1" onclick="openModal('m-neuro')">View Details</button>
+                <a href="https://github.com/JayanthC6" target="_blank" class="btn btn-secondary flex-1 text-center">View
+                  Code</a>
+              </div>
+            </div>
+
+            <!-- Smart Attendance Tracker -->
+            <div
+              class="project-card card bg-[#0a0f14cc] border border-cyan-800/30 hover:border-cyan-400/50 transition-all">
+              <h3 class="font-semibold gradient-text mb-2">📊 Smart Attendance Tracker</h3>
+              <p class="text-sm text-gray-300 mb-4">
+                Flask + MySQL role-based web app for subject-wise attendance management with analytics-ready schema.
+                Admins can modify attendance; students can only view records.
+              </p>
+              <div class="flex gap-3">
+                <button class="btn btn-primary flex-1" onclick="openModal('m-att')">View Details</button>
+                <a href="https://github.com/JayanthC6" target="_blank" class="btn btn-secondary flex-1 text-center">View
+                  Code</a>
+              </div>
+            </div>
+
+            <!-- Farm Crop Suggestion -->
+            <div
+              class="project-card card bg-[#0a0f14cc] border border-cyan-800/30 hover:border-cyan-400/50 transition-all">
+              <h3 class="font-semibold gradient-text mb-2">🌾 Farm Crop Suggestion System</h3>
+              <p class="text-sm text-gray-300 mb-4">
+                Flask-based system that analyzes soil images using heuristic image processing and provides intelligent
+                crop recommendations based on environmental factors.
+              </p>
+              <div class="flex gap-3">
+                <button class="btn btn-primary flex-1" onclick="openModal('m-crop')">View Details</button>
+                <a href="https://github.com/JayanthC6" target="_blank" class="btn btn-secondary flex-1 text-center">View
+                  Code</a>
+              </div>
+            </div>
+
+            <!-- Appointment Booking -->
+            <div
+              class="project-card card bg-[#0a0f14cc] border border-cyan-800/30 hover:border-cyan-400/50 transition-all">
+              <h3 class="font-semibold gradient-text mb-2">🏥 Appointment Booking System (Hospital)</h3>
+              <p class="text-sm text-gray-300 mb-4">
+                CLI-based C program that allows booking, viewing, and cancelling hospital appointments.
+                Strengthened skills in file handling, structures, and arrays in C programming.
+              </p>
+              <div class="flex gap-3">
+                <button class="btn btn-primary flex-1" onclick="openModal('m-appoint')">View Details</button>
+                <a href="https://github.com/JayanthC6" target="_blank" class="btn btn-secondary flex-1 text-center">View
+                  Code</a>
+              </div>
+            </div>
+
+            <!-- Crypto Tracker -->
+            <div
+              class="project-card card bg-[#0a0f14cc] border border-cyan-800/30 hover:border-cyan-400/50 transition-all">
+              <h3 class="font-semibold gradient-text mb-2">💹 Crypto Currency Price Tracker</h3>
+              <p class="text-sm text-gray-300 mb-4">
+                A React.js-based application that tracks live cryptocurrency prices and displays real-time analytics
+                using
+                charts and APIs for market trends.
+              </p>
+              <div class="flex gap-3">
+                <button class="btn btn-primary flex-1" onclick="openModal('m-crypto')">View Details</button>
+                <a href="https://github.com/JayanthC6" target="_blank" class="btn btn-secondary flex-1 text-center">View
+                  Code</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Add this small CSS to ensure buttons are clickable above background -->
+      <style>
+        #vanta-bg {
+          z-index: -10 !important;
+        }
+
+        /* Keep background behind everything */
+        .project-card {
+          position: relative;
+          z-index: 20;
+        }
+
+        .btn {
+          cursor: pointer;
+        }
+
+        .btn-primary {
+          background: linear-gradient(90deg, #00bcd4, #007bff);
+          color: #fff;
+          transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+          background: linear-gradient(90deg, #00ffe1, #00b3ff);
+          box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+        }
+
+        .btn-secondary {
+          border: 1px solid #00b3ff;
+          color: #00b3ff;
+        }
+
+        .btn-secondary:hover {
+          background-color: #00b3ff;
+          color: black;
+        }
+
+        /* Fix: Make particle background non-interactive */
+        #particles-js {
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        section,
+        .card-bg,
+        button,
+        a {
+          position: relative;
+          z-index: 2;
+        }
+      </style>
+
+
+      <!-- BLOG -->
+      <section id="blog">
+        <div class="container" data-aos="fade-up">
+          <h2 class="text-3xl font-bold gradient-text mb-6 text-center">Blog</h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Blog 1 -->
+            <article class="card">
+              <h3 class="font-semibold mb-2">NeuroSymbolic AI — Final Year Project (In Progress)</h3>
+              <p style="color:var(--muted); font-size:0.95rem;">
+                I am currently working on my final year MCA project called <strong>NeuroSymbolic AI for Explainable
+                  Brain
+                  Tumour diagnosis through MRI scans</strong> using Python, deep learning, and Explainable AI libraries.
+                I
+                have reviewed almost 10 research papers related to this project. This is a real-world problem: the goal
+                is
+                to build models doctors can trust by providing clear explanations alongside predictions.
+              </p>
+            </article>
+
+            <!-- Blog 2 -->
+            <article class="card">
+              <h3 class="font-semibold mb-2">Smart Attendance Tracker — What I Learned</h3>
+              <p style="color:var(--muted); font-size:0.95rem;">
+                I built the Smart Attendance Tracker during my 2nd semester of MCA. Through this project I learned
+                practical full-stack skills — building REST endpoints in Flask, designing relational schemas in MySQL,
+                and
+                styling responsive interfaces with Bootstrap. I implemented role-based access (admin vs student), report
+                generation, and learned about query optimization and secure session handling. The project deepened my
+                understanding of end-to-end product workflows.
+              </p>
+            </article>
+
+            <!-- Blog 3 -->
+            <article class="card">
+              <h3 class="font-semibold mb-2">Appointment Booking System (C) — Fundamentals</h3>
+              <p style="color:var(--muted); font-size:0.95rem;">
+                I implemented an Appointment Booking System in C that taught me low-level programming concepts
+                thoroughly
+                — structures, unions, arrays, file I/O, and modular code. Building the CLI and managing persistent
+                records
+                improved my grasp on memory management and program architecture.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- EDUCATION -->
+      <section id="education">
+        <div class="container text-center" data-aos="fade-up">
+          <h2 class="text-3xl font-bold gradient-text mb-4">Education</h2>
+          <p style="color:var(--muted)">Master of Computer Applications (MCA) — Bangalore Institute of
+            Technology(Ongoing), Bangalore | CGPA: 8.78 | Dec 2024 - Present
+            <br>Bachelor of Computer Applications (BCA) — Vasavi Education Trust(VET), Bangalore | CGPA: 8.6 | Oct 2021
+            - Sept 2024
+          </p>
+        </div>
+      </section>
+
+      <!-- Certifications Section -->
+      <section id="certifications" class="py-20" data-aos="fade-up">
+        <h2 class="text-4xl font-bold text-center section-heading mb-12 gradient-text">Certifications</h2>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+
+          <!-- Certification 1 -->
+          <div
+            class="card-bg p-6 border border-cyan-400/30 hover:border-cyan-400 transition-all duration-300 hover:shadow-[0_0_20px_#00ffff50]"
+            data-aos="zoom-in">
+            <h3 class="text-xl font-semibold text-cyan-400 mb-2">Oracle Cloud Infrastructure (OCI) Foundations Associate
+            </h3>
+            <p class="text-text-muted text-sm">Learned the fundamentals of Oracle Cloud services, architecture, and
+              cloud-native computing.</p>
+          </div>
+
+          <!-- Certification 2 -->
+          <div
+            class="card-bg p-6 border border-cyan-400/30 hover:border-cyan-400 transition-all duration-300 hover:shadow-[0_0_20px_#00ffff50]"
+            data-aos="zoom-in" data-aos-delay="100">
+            <h3 class="text-xl font-semibold text-cyan-400 mb-2">Introduction to Cyber Security - Cisco(2025)</h3>
+            <p class="text-text-muted text-sm">Gained understanding of network security, encryption, and risk management
+              fundamentals.</p>
+          </div>
+
+          <!-- Certification 3 -->
+          <div
+            class="card-bg p-6 border border-cyan-400/30 hover:border-cyan-400 transition-all duration-300 hover:shadow-[0_0_20px_#00ffff50]"
+            data-aos="zoom-in" data-aos-delay="200">
+            <h3 class="text-xl font-semibold text-cyan-400 mb-2">Python Foundation Certification - Infosys SpringBoard</h3>
+            <p class="text-text-muted text-sm">Developed strong programming logic in Python and practiced core DSA and
+              OOP concepts.</p>
+          </div>
+
+          <!-- Certification 4 -->
+          <div
+            class="card-bg p-6 border border-cyan-400/30 hover:border-cyan-400 transition-all duration-300 hover:shadow-[0_0_20px_#00ffff50]"
+            data-aos="zoom-in" data-aos-delay="300">
+            <h3 class="text-xl font-semibold text-cyan-400 mb-2">Programming Using Java - Infosys SpringBoard</h3>
+            <p class="text-text-muted text-sm">Acquired knowledge of OOP principles, exception handling, collections,
+              and real-world Java applications.</p>
+          </div>
+
+          <!-- Certification 5 -->
+         <!-- <div
+            class="card-bg p-6 border border-cyan-400/30 hover:border-cyan-400 transition-all duration-300 hover:shadow-[0_0_20px_#00ffff50]"
+            data-aos="zoom-in" data-aos-delay="400">
+            <h3 class="text-xl font-semibold text-cyan-400 mb-2">AI & Machine Learning Fundamentals</h3>
+            <p class="text-text-muted text-sm">Explored supervised learning, neural networks, and model evaluation using
+              scikit-learn and TensorFlow.</p>
+          </div> -->
+
+          <!-- Certification 6 -->
+          <div
+            class="card-bg p-6 border border-cyan-400/30 hover:border-cyan-400 transition-all duration-300 hover:shadow-[0_0_20px_#00ffff50]"
+            data-aos="zoom-in" data-aos-delay="500">
+            <h3 class="text-xl font-semibold text-cyan-400 mb-2">Web Development - Udemy(2025)</h3>
+            <p class="text-text-muted text-sm">Learned HTML, CSS, JavaScript, and responsive UI design with hands-on
+              website projects.</p>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- CONTACT -->
+      <section id="contact">
+        <div class="container text-center" data-aos="fade-up">
+          <h2 class="text-3xl font-bold gradient-text mb-4">Contact</h2>
+          <p style="color:var(--muted); max-width:760px; margin:0 auto 18px">I’m open to internships and collaboration
+            on
+            AI/ML projects. Reach me via email or LinkedIn — I reply quickly to relevant opportunities.</p>
+          <div class="flex justify-center gap-4">
+            <a href="mailto:iconicno18@gmail.com" class="btn btn-primary">Email</a>
+            <a href="https://www.linkedin.com/in/jayanthc18/" class="btn btn-secondary">LinkedIn</a>
+          </div>
+        </div>
+      </section>
+  </main>
+
+  <footer>
+    © 2025 Jayanth C — Built with code & curiosity.
+  </footer>
+
+  <!-- Modals (detail modals for projects) -->
+  <div id="modal-wrapper"
+    style="display:none; position:fixed; inset:0; z-index:60; align-items:center; justify-content:center; background:rgba(0,0,0,0.6);">
+    <div id="modal"
+      style="max-width:820px; width:96%; border-radius:12px; background:var(--card); border:1px solid var(--glass-border); padding:22px; position:relative;">
+      <button onclick="closeModal()"
+        style="position:absolute; right:14px; top:10px; background:transparent; border:none; color:var(--muted); font-size:22px">✕</button>
+      <div id="modal-content" style="color:#dbeefe"></div>
+    </div>
+  </div>
+
+  <!-- Vanta.NET (neural grid) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+  <script>
+    VANTA.NET({
+      el: "#vanta-bg",
+      mouseControls: true,
+      touchControls: true,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      color: 0x00ffe1,
+      backgroundColor: 0x050a0f,
+      points: 14.00,
+      maxDistance: 22.00,
+      spacing: 16.00
+    });
+  </script>
+
+  <!-- AOS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script> AOS.init({ duration: 900, once: true, easing: 'ease-in-out' }); </script>
+
+  <!-- Modal + simple interactions -->
+  <script>
+    function openModal(id) {
+      const content = {
+        "m-neuro": `<h2 style="font-size:20px; color:var(--accent1); margin-bottom:8px">NeuroSymbolic AI — Explainable Tumour Diagnosis</h2>
+                    <p style="color:var(--muted)">This MCA final-year project combines CNN-based MRI analysis with symbolic reasoning so outputs include human-readable explanations. I use Python, TensorFlow/PyTorch, and XAI libraries to extract feature attributions and map them to symbolic rules. I reviewed ~10 research papers and focused on clinical interpretability to make AI decisions trustworthy for doctors.</p>
+                    <p style="margin-top:10px; color:var(--muted)"><strong>Current work:</strong> model training, symbolic rule integration, evaluation with interpretability metrics.</p>`,
+        "m-att": `<h2 style="font-size:20px; color:var(--accent1); margin-bottom:8px">Smart Attendance Tracker</h2>
+                  <p style="color:var(--muted)">Built with Flask, MySQL and Bootstrap. It supports role-based access (Admin / Student), attendance recording, analytics-ready schema, and reporting features. Through this project I learned RESTful design, secure session handling, SQL schema optimization and building product-like workflows.</p>
+                  <p style="margin-top:10px; color:var(--muted)"><strong>Future scope:</strong> face recognition auto-attendance, realtime dashboards, deployment & monitoring.</p>`,
+        "m-crop": `<h2 style="font-size:20px; color:var(--accent1); margin-bottom:8px">Farm Crop Suggestion System</h2>
+                   <p style="color:var(--muted)">Analyzes soil images using heuristic image processing, scores candidate crops against simulated weather and water availability, and recommends options that maximize expected profitability. Tech: Python, Flask, OpenCV-style processing.</p>`,
+        "m-appoint": `<h2 style="font-size:20px; color:var(--accent1); margin-bottom:8px">Appointment Booking System (C)</h2>
+                      <p style="color:var(--muted)">A CLI program in C that lets users add/view/cancel appointments with file-based persistence. Key learning: structures, unions, arrays, modular code and file I/O for persistent storage.</p>`,
+        "m-crypto": `<h2 style="font-size:20px; color:var(--accent1); margin-bottom:8px">Crypto Currency Price Tracker</h2>
+                     <p style="color:var(--muted)">React frontend fetching live prices from public APIs, displaying dynamic charts and tables for market monitoring. Focus on efficient polling, state management, and responsive UI.</p>`
+      };
+      document.getElementById('modal-content').innerHTML = content[id] || "<p>Details coming soon.</p>";
+      document.getElementById('modal-wrapper').style.display = "flex";
+    }
+    function closeModal() { document.getElementById('modal-wrapper').style.display = "none"; }
+
+    // Animate progress bars after scroll into view
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('.progress > i').forEach(i => {
+            i.style.width = i.style.width || i.getAttribute('style').match(/width:\s*([^;]+)/)[1];
+          });
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.45 });
+    document.querySelectorAll('.card').forEach(c => obs.observe(c));
+  </script>
+</body>
+
+</html>
