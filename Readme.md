@@ -107,7 +107,7 @@ Bangalore Institute of Technology
 
 - **GitHub:** [JayanthC6](https://github.com/JayanthC6)  
 - **LinkedIn:** [linkedin.com/in/jayanthc18](https://www.linkedin.com/in/jayanthc18/)  
-- **Email:** [iconicno18@gmail.com](mailto:iconicno18@gmail.com)
+- **Email:** [iconicno18@gmail.com](mailto:jayanthjayanthc96@gmail.com)
 
 ---
 
