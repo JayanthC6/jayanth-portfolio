@@ -4,707 +4,1590 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Jayanth C – AI Portfolio</title>
+  <title>Jayanth C | The Captain's Innings</title>
 
-  <!-- Tailwind & AOS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@400;600&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300;400;600;700&family=Russo+One&display=swap"
     rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     :root {
-      --bg: #050a0f;
-      --card: rgba(10, 20, 25, 0.85);
-      --muted: #9aa7b3;
-      --accent1: #00ffe1;
-      --accent2: #00b3ff;
-      --neon: #0fffc6;
-      --glass-border: rgba(0, 255, 255, 0.14);
-    }
-
-    * {
-      box-sizing: border-box
+      --rcb-red: #E31837;
+      --rcb-gold: #D4AF37;
+      --rcb-dark: #000000;
+      --rcb-gradient: linear-gradient(135deg, #E31837 0%, #8B0000 100%);
+      --gold-gradient: linear-gradient(135deg, #FFD700 0%, #D4AF37 100%);
+      --glass-bg: rgba(20, 20, 20, 0.65);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --transition-smooth: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --neon-glow: 0 0 20px rgba(227, 24, 55, 0.5), 0 0 40px rgba(227, 24, 55, 0.3);
     }
 
     body {
       margin: 0;
-      font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
-      background: var(--bg);
-      color: #e6f0ff;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      font-family: 'Teko', sans-serif;
+      background-color: var(--rcb-dark);
+      color: white;
       overflow-x: hidden;
+      cursor: none;
     }
 
-    header {
-      backdrop-filter: blur(8px);
-      background: rgba(0, 0, 0, 0.35);
-      border-bottom: 1px solid var(--glass-border);
+    /* --- CUSTOM CURSOR --- */
+    #cursor {
       position: fixed;
-      width: 100%;
-      z-index: 40
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--rcb-gold);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease-out, border-color 0.3s;
+      mix-blend-mode: difference;
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
     }
 
-    nav.container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 20px
+    #cursor-dot {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 6px;
+      background: var(--rcb-red);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 10px var(--rcb-red);
     }
 
-    .brand {
-      font-family: "Orbitron", sans-serif;
-      background: linear-gradient(90deg, var(--accent1), var(--accent2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 700
-    }
-
-    a.nav-link {
-      color: var(--muted);
-      text-decoration: none;
-      transition: color .2s
-    }
-
-    a.nav-link:hover {
-      color: var(--accent1)
-    }
-
-    /* Vanta background container */
-    #vanta-bg {
+    /* --- 3D CRICKET STADIUM IMAGE BACKGROUND --- */
+    #stadium-bg {
       position: fixed;
       inset: 0;
-      z-index: -10
+      z-index: -2;
+      overflow: hidden;
+      perspective: 1000px;
+      transform-style: preserve-3d;
     }
 
-    /* Neon heading */
-    .neon {
-      color: var(--neon);
-      text-shadow: 0 0 8px var(--neon), 0 0 28px var(--accent2);
-      font-family: "Orbitron", sans-serif;
+    /* Stadium image layer with 3D depth */
+    .stadium-image {
+      position: absolute;
+      inset: -10%;
+      background-image: url('stadium.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transform: translateZ(-100px) scale(1.1);
+      animation: stadiumZoom 20s ease-in-out infinite;
+      filter: brightness(0.75) contrast(1.1) saturate(1.2);
     }
 
-    .gradient-text {
-      background: linear-gradient(90deg, var(--accent1), var(--accent2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-size: 600% 600%;
-      animation: gradMove 6s ease infinite;
-    }
+    @keyframes stadiumZoom {
 
-    @keyframes gradMove {
-      0% {
-        background-position: 0% 50%
+      0%,
+      100% {
+        transform: translateZ(-100px) scale(1.1);
       }
 
       50% {
-        background-position: 100% 50%
+        transform: translateZ(-80px) scale(1.15);
+      }
+    }
+
+    /* Dark overlay for better text contrast */
+    .stadium-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom,
+          rgba(0, 0, 0, 0.7) 0%,
+          rgba(0, 0, 0, 0.5) 50%,
+          rgba(0, 0, 0, 0.8) 100%),
+        radial-gradient(circle at 50% 50%,
+          transparent 0%,
+          rgba(0, 0, 0, 0.4) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Vignette effect */
+    #stadium-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%,
+          transparent 0%,
+          rgba(0, 0, 0, 0.6) 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Stadium floodlight glow overlay */
+    #stadium-bg::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 40%;
+      background: linear-gradient(to bottom,
+          rgba(255, 255, 200, 0.05) 0%,
+          transparent 100%);
+      z-index: 3;
+      pointer-events: none;
+      animation: floodlightGlow 4s ease-in-out infinite;
+    }
+
+    @keyframes floodlightGlow {
+
+      0%,
+      100% {
+        opacity: 0.5;
+      }
+
+      50% {
+        opacity: 0.8;
+      }
+    }
+
+    /* Additional floodlight beams */
+    .floodlight {
+      position: fixed;
+      top: -10%;
+      width: 12%;
+      height: 120%;
+      background: linear-gradient(to bottom,
+          rgba(255, 255, 220, 0.04) 0%,
+          rgba(255, 255, 220, 0.01) 60%,
+          transparent 100%);
+      pointer-events: none;
+      z-index: 4;
+      mix-blend-mode: screen;
+    }
+
+    .floodlight:nth-child(1) {
+      left: 20%;
+      transform: skewX(-10deg);
+      animation: floodlightPulse 4.5s ease-in-out infinite 0.5s;
+    }
+
+    .floodlight:nth-child(2) {
+      left: 40%;
+      transform: skewX(-5deg);
+      animation: floodlightPulse 5s ease-in-out infinite 1s;
+    }
+
+    .floodlight:nth-child(3) {
+      left: 60%;
+      transform: skewX(5deg);
+      animation: floodlightPulse 4.2s ease-in-out infinite 1.5s;
+    }
+
+    .floodlight:nth-child(4) {
+      left: 80%;
+      transform: skewX(10deg);
+      animation: floodlightPulse 4.8s ease-in-out infinite 2s;
+    }
+
+    @keyframes floodlightPulse {
+
+      0%,
+      100% {
+        opacity: 0.3;
+      }
+
+      50% {
+        opacity: 0.6;
+      }
+    }
+
+    /* Stadium field glow at bottom */
+    .stadium-field {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 20%;
+      background: linear-gradient(to top,
+          rgba(227, 24, 55, 0.15) 0%,
+          transparent 100%);
+      z-index: 5;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    /* Animated Grid overlay (pitch lines) */
+    #stadium-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+      animation: gridMove 20s linear infinite;
+    }
+
+    @keyframes gridMove {
+      0% {
+        background-position: 0 0;
       }
 
       100% {
-        background-position: 0% 50%
+        background-position: 50px 50px;
       }
     }
 
-    /* Cards */
-    .card {
-      background: var(--card);
-      border: 1px solid var(--glass-border);
-      border-radius: 14px;
-      padding: 20px;
-      transition: transform .35s, box-shadow .35s;
-      box-shadow: 0 6px 28px rgba(0, 0, 0, 0.6);
+    /* Enhanced Floating Particles */
+    .particle {
+      position: fixed;
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: float 10s infinite linear;
+      pointer-events: none;
+      filter: blur(1px);
     }
 
-    .card:hover {
-      transform: translateY(-10px) scale(1.01);
-      box-shadow: 0 20px 60px rgba(0, 180, 255, 0.12);
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg) scale(1);
+        opacity: 0;
+      }
+
+      50% {
+        opacity: 0.6;
+        transform: translateY(-50vh) rotate(180deg) scale(1.2);
+      }
+
+      100% {
+        transform: translateY(-100vh) rotate(360deg) scale(0.8);
+        opacity: 0;
+      }
     }
 
-    /* Project card neon outline */
-    .project-card {
+    /* --- HEADER (GLASS) with Glow --- */
+    header {
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+      position: fixed;
+      width: 100%;
+      z-index: 50;
+      padding: 12px 0;
+      transition: var(--transition-smooth);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    header:hover {
+      background: rgba(0, 0, 0, 0.9);
+      border-bottom-color: rgba(227, 24, 55, 0.3);
+    }
+
+    /* --- JERSEY ICONS with 3D Effect --- */
+    .jersey-icon {
+      width: 45px;
+      height: 55px;
+      background: linear-gradient(to bottom, #222, #000);
+      border-radius: 8px 8px 4px 4px;
       position: relative;
-      overflow: hidden
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #333;
+      transition: var(--transition-smooth);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      transform-style: preserve-3d;
     }
 
-    .project-card::after {
-      content: "";
+    .jersey-icon::before,
+    .jersey-icon::after {
+      content: '';
       position: absolute;
-      inset: -2px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--accent1), var(--accent2));
-      filter: blur(18px);
-      opacity: 0;
-      transition: opacity .3s;
+      top: 0;
+      width: 14px;
+      height: 22px;
+      background: inherit;
+      border: 1px solid #333;
+      border-bottom: none;
+      z-index: -1;
+      transition: var(--transition-smooth);
     }
 
-    .project-card:hover::after {
-      opacity: 1
+    .jersey-icon::before {
+      left: -6px;
+      transform: skewY(20deg);
+      border-radius: 4px 0 0 0;
     }
 
-    /* Buttons */
-    .btn {
-      font-family: "Orbitron", sans-serif;
-      padding: 10px 14px;
-      border-radius: 10px;
-      display: inline-block;
-      text-align: center
+    .jersey-icon::after {
+      right: -6px;
+      transform: skewY(-20deg);
+      border-radius: 0 4px 0 0;
     }
 
-    .btn-primary {
-      background: linear-gradient(90deg, var(--accent1), var(--accent2));
-      color: #001;
-      box-shadow: 0 6px 24px rgba(0, 179, 255, 0.12)
+    /* Enhanced Jersey Hover with 3D Rotation */
+    .jersey-link:hover .jersey-icon {
+      transform: translateY(-8px) rotateY(10deg);
+      background: var(--rcb-gradient);
+      border-color: var(--rcb-red);
+      box-shadow: 0 15px 35px rgba(227, 24, 55, 0.6), var(--neon-glow);
     }
 
-    .btn-secondary {
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      color: var(--accent1);
-      background: transparent
+    .jersey-link:hover .j-num {
+      color: white;
+      text-shadow: 0 0 15px rgba(255, 255, 255, 0.9), 0 0 30px rgba(227, 24, 55, 0.5);
+      animation: pulse 1s ease-in-out infinite;
     }
 
-    .btn:hover {
-      transform: scale(1.03)
-    }
+    @keyframes pulse {
 
-    /* Skills layout */
-    .skill-badge {
-      background: rgba(255, 255, 255, 0.04);
-      padding: 6px 10px;
-      border-radius: 999px;
-      color: var(--muted);
-      font-size: 0.9rem
-    }
-
-    .progress {
-      height: 10px;
-      background: rgba(255, 255, 255, 0.04);
-      border-radius: 999px;
-      overflow: hidden
-    }
-
-    .progress>i {
-      display: block;
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--accent1), var(--accent2));
-      transition: width 1.2s ease
-    }
-
-    /* Sections */
-    section {
-      padding: 80px 20px
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto
-    }
-
-    /* Footer */
-    footer {
-      padding: 28px 0;
-      text-align: center;
-      color: var(--muted);
-      border-top: 1px solid rgba(0, 255, 255, 0.05)
-    }
-
-    /* Responsive */
-    @media (max-width:900px) {
-      nav.container {
-        padding: 12px
+      0%,
+      100% {
+        transform: scale(1);
       }
 
-      .grid-3 {
-        grid-template-columns: repeat(1, 1fr)
+      50% {
+        transform: scale(1.1);
+      }
+    }
+
+    .j-num {
+      font-family: 'Russo One', sans-serif;
+      font-size: 20px;
+      color: #555;
+      transition: var(--transition-smooth);
+    }
+
+    /* --- TYPOGRAPHY with Glow --- */
+    .gradient-text {
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0px 4px 20px rgba(212, 175, 55, 0.3);
+      animation: textGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes textGlow {
+
+      0%,
+      100% {
+        filter: brightness(1);
+      }
+
+      50% {
+        filter: brightness(1.3);
+      }
+    }
+
+    .section-title {
+      font-family: 'Russo One', sans-serif;
+      font-size: 4rem;
+      text-transform: uppercase;
+      color: white;
+      position: relative;
+      display: inline-block;
+      margin-bottom: 30px;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--rcb-gradient);
+      transform: skewX(-20deg);
+      box-shadow: 0 0 20px var(--rcb-red), 0 0 40px rgba(227, 24, 55, 0.5);
+      animation: underlineGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes underlineGlow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 20px var(--rcb-red), 0 0 40px rgba(227, 24, 55, 0.5);
+      }
+
+      50% {
+        box-shadow: 0 0 30px var(--rcb-red), 0 0 60px rgba(227, 24, 55, 0.7);
+      }
+    }
+
+    /* --- CARDS (Enhanced 3D Glassmorphism) --- */
+    .scorecard {
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 30px;
+      transition: var(--transition-smooth);
+      position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+    }
+
+    /* Animated gradient overlay */
+    .scorecard::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg,
+          transparent 30%,
+          rgba(227, 24, 55, 0.1) 50%,
+          transparent 70%);
+      transform: rotate(0deg);
+      transition: transform 0.6s;
+      pointer-events: none;
+    }
+
+    .scorecard:hover::before {
+      transform: rotate(180deg);
+    }
+
+    .scorecard:hover {
+      transform: translateY(-10px) scale(1.03) rotateX(2deg);
+      border-color: var(--rcb-gold);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7),
+        0 0 30px rgba(212, 175, 55, 0.3),
+        inset 0 0 20px rgba(227, 24, 55, 0.1);
+    }
+
+    .scorecard h3 {
+      font-family: 'Russo One', sans-serif;
+      color: white;
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+      transition: var(--transition-smooth);
+      position: relative;
+      z-index: 1;
+    }
+
+    .scorecard:hover h3 {
+      color: var(--rcb-gold);
+      text-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+    }
+
+    /* --- BUTTONS with Enhanced Effects --- */
+    .btn-play {
+      background: var(--rcb-gradient);
+      color: white;
+      font-family: 'Russo One', sans-serif;
+      padding: 14px 35px;
+      border-radius: 50px;
+      text-transform: uppercase;
+      font-size: 1.1rem;
+      border: none;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition-smooth);
+      box-shadow: 0 5px 20px rgba(227, 24, 55, 0.4);
+      cursor: none;
+    }
+
+    .btn-play::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+      transition: 0.6s;
+    }
+
+    .btn-play:hover::before {
+      left: 100%;
+    }
+
+    .btn-play::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50px;
+      padding: 2px;
+      background: linear-gradient(45deg, var(--rcb-red), var(--rcb-gold), var(--rcb-red));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .btn-play:hover::after {
+      opacity: 1;
+      animation: rotateBorder 3s linear infinite;
+    }
+
+    @keyframes rotateBorder {
+      0% {
+        filter: hue-rotate(0deg);
+      }
+
+      100% {
+        filter: hue-rotate(360deg);
+      }
+    }
+
+    .btn-play:hover {
+      transform: scale(1.08) translateY(-2px);
+      box-shadow: 0 15px 40px rgba(227, 24, 55, 0.7), var(--neon-glow);
+    }
+
+    .btn-play.outline {
+      background: transparent;
+      border: 2px solid var(--rcb-gold);
+      color: var(--rcb-gold);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+    }
+
+    .btn-play.outline:hover {
+      background: var(--rcb-gold);
+      color: black;
+      box-shadow: 0 0 35px var(--rcb-gold), 0 0 60px rgba(212, 175, 55, 0.5);
+      transform: scale(1.08) translateY(-2px);
+    }
+
+    /* --- ANIMATED STATS BARS --- */
+    .run-meter-bg {
+      height: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 8px;
+      position: relative;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .run-meter-fill {
+      height: 100%;
+      background: var(--rcb-gradient);
+      width: 0%;
+      border-radius: 10px;
+      box-shadow: 0 0 15px var(--rcb-red), 0 0 30px rgba(227, 24, 55, 0.5);
+      transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .run-meter-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent);
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% {
+        transform: translateX(-100%);
+      }
+
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    /* Scrollbar with Glow */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #000;
+      border-left: 1px solid #222;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, var(--rcb-red), #8B0000);
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(227, 24, 55, 0.5);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, #ff1837, var(--rcb-red));
+      box-shadow: 0 0 20px rgba(227, 24, 55, 0.8);
+    }
+
+    /* Hero Text Animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Parallax Effect Helper */
+    .parallax {
+      transition: transform 0.1s ease-out;
+    }
+
+    /* Contact Section Glowing Orbs */
+    #contact {
+      position: relative;
+    }
+
+    #contact::before,
+    #contact::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      animation: float-orb 20s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    #contact::before {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, var(--rcb-red) 0%, transparent 70%);
+      top: 10%;
+      left: -10%;
+      animation-delay: 0s;
+    }
+
+    #contact::after {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, var(--rcb-gold) 0%, transparent 70%);
+      bottom: -10%;
+      right: -10%;
+      animation-delay: 10s;
+    }
+
+    @keyframes float-orb {
+
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      33% {
+        transform: translate(30px, -30px) scale(1.1);
+      }
+
+      66% {
+        transform: translate(-30px, 30px) scale(0.9);
+      }
+    }
+
+    /* --- MOBILE SIDEBAR MENU --- */
+    .mobile-menu-btn {
+      display: none;
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 1000;
+      background: var(--rcb-red);
+      border: 2px solid var(--rcb-gold);
+      border-radius: 8px;
+      padding: 0.75rem;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(227, 24, 55, 0.5);
+    }
+
+    .mobile-menu-btn i {
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    .mobile-sidebar {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100vh;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.98) 0%, rgba(20, 20, 20, 0.98) 100%);
+      backdrop-filter: blur(10px);
+      border-left: 2px solid var(--rcb-gold);
+      z-index: 999;
+      transition: right 0.3s ease-in-out;
+      overflow-y: auto;
+      padding: 5rem 1.5rem 2rem;
+      box-shadow: -5px 0 30px rgba(0, 0, 0, 0.8);
+    }
+
+    .mobile-sidebar.active {
+      right: 0;
+    }
+
+    .mobile-sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 998;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .mobile-sidebar-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .mobile-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      margin-bottom: 0.5rem;
+      background: rgba(227, 24, 55, 0.1);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-nav-item:hover {
+      background: rgba(227, 24, 55, 0.2);
+      border-color: var(--rcb-gold);
+      transform: translateX(-5px);
+    }
+
+    .mobile-nav-jersey {
+      width: 50px;
+      height: 50px;
+      background: var(--rcb-gradient);
+      border: 2px solid var(--rcb-gold);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .mobile-nav-label {
+      color: white;
+      font-size: 0.875rem;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      nav.hidden.md\\:flex {
+        display: none !important;
+      }
+    }
+
+    /* --- MOBILE RESPONSIVENESS --- */
+    @media (max-width: 768px) {
+
+      /* Disable custom cursor on mobile */
+      body {
+        cursor: auto !important;
+      }
+
+      #cursor,
+      #cursor-dot {
+        display: none !important;
+      }
+
+      /* Hero section mobile fixes */
+      h1 {
+        font-size: 3.5rem !important;
+        line-height: 1.1 !important;
+      }
+
+      .text-8xl {
+        font-size: 3.5rem !important;
+      }
+
+      .md\:text-\[10rem\] {
+        font-size: 3.5rem !important;
+      }
+
+      /* Tagline mobile */
+      .text-2xl {
+        font-size: 1.125rem !important;
+      }
+
+      /* Buttons mobile */
+      .btn-play {
+        padding: 0.75rem 1.5rem !important;
+        font-size: 0.875rem !important;
+      }
+
+      .mt-12 {
+        margin-top: 2rem !important;
+      }
+
+      .flex.gap-6 {
+        gap: 0.75rem !important;
+        flex-direction: column !important;
+      }
+
+      /* Navigation mobile */
+      header {
+        padding: 0.5rem 1rem !important;
+      }
+
+      .text-3xl {
+        font-size: 1.5rem !important;
+      }
+
+      /* Section padding mobile */
+      .py-24 {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+      }
+
+      .py-32 {
+        padding-top: 4rem !important;
+        padding-bottom: 4rem !important;
+      }
+
+      /* Grid mobile */
+      .grid.md\:grid-cols-2,
+      .grid.md\:grid-cols-3 {
+        grid-template-columns: 1fr !important;
+      }
+
+      /* Scorecard mobile */
+      .scorecard {
+        padding: 1.5rem !important;
+      }
+
+      /* Project buttons mobile */
+      .flex.gap-2 {
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+      }
+
+      .flex-1 {
+        width: 100% !important;
+      }
+
+      /* Section title mobile */
+      .section-title {
+        font-size: 2rem !important;
+      }
+
+      /* Jersey card mobile */
+      .w-64 {
+        width: 12rem !important;
+      }
+
+      .h-80 {
+        height: 16rem !important;
+      }
+
+      /* Contact section mobile */
+      .text-6xl {
+        font-size: 2.5rem !important;
+      }
+
+      /* Particle system - reduce on mobile */
+      .particle {
+        opacity: 0.3 !important;
+      }
+
+      /* Stadium background - simplify on mobile */
+      .stadium-image {
+        filter: brightness(0.6) !important;
+      }
+
+      /* Skills grid mobile */
+      .grid.grid-cols-2 {
+        grid-template-columns: 1fr !important;
+      }
+
+      /* Modal mobile */
+      #modal {
+        width: 90% !important;
+        max-width: 90% !important;
+        padding: 1.5rem !important;
+      }
+    }
+
+    /* Extra small devices */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2.5rem !important;
+      }
+
+      .text-xl {
+        font-size: 0.875rem !important;
+      }
+
+      .tracking-\[0\.5em\] {
+        letter-spacing: 0.2em !important;
+      }
+    }
+
+    /* Fix section overlap on anchor navigation */
+    section {
+      scroll-margin-top: 150px;
+    }
+
+    @media (max-width: 768px) {
+      section {
+        scroll-margin-top: 100px;
       }
     }
   </style>
 </head>
 
 <body>
-  <!-- Vanta NET background (neural/cyber) -->
-  <div id="vanta-bg"></div>
 
-  <!-- NAV -->
+  <!-- Mobile Menu Button -->
+  <button class="mobile-menu-btn" id="mobileMenuBtn">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- Mobile Sidebar Overlay -->
+  <div class="mobile-sidebar-overlay" id="mobileSidebarOverlay"></div>
+
+  <!-- Mobile Sidebar -->
+  <div class="mobile-sidebar" id="mobileSidebar">
+    <a href="#home" class="mobile-nav-item">
+      <div class="mobile-nav-jersey">18</div>
+      <div class="mobile-nav-label">HOME</div>
+    </a>
+    <a href="#about" class="mobile-nav-item">
+      <div class="mobile-nav-jersey">17</div>
+      <div class="mobile-nav-label">PROFILE</div>
+    </a>
+    <a href="#skills" class="mobile-nav-item">
+      <div class="mobile-nav-jersey">333</div>
+      <div class="mobile-nav-label">STATS</div>
+    </a>
+    <a href="#education" class="mobile-nav-item">
+      <div class="mobile-nav-jersey">19</div>
+      <div class="mobile-nav-label">ACADEMY</div>
+    </a>
+    <a href="#projects" class="mobile-nav-item">
+      <div class="mobile-nav-jersey">97</div>
+      <div class="mobile-nav-label">REPLAYS</div>
+    </a>
+    <a href="#contact" class="mobile-nav-item">
+      <div class="mobile-nav-jersey">3</div>
+      <div class="mobile-nav-label">CONTACT</div>
+    </a>
+  </div>
+
+  <div id="cursor"></div>
+  <div id="cursor-dot"></div>
+
+  <!-- 3D Cricket Stadium Background -->
+  <div id="stadium-bg">
+    <div class="stadium-image"></div>
+    <div class="stadium-overlay"></div>
+  </div>
+  <div class="floodlight"></div>
+  <div class="floodlight"></div>
+  <div class="floodlight"></div>
+  <div class="floodlight"></div>
+  <div class="stadium-field"></div>
+  <!-- Enhanced Particle System -->
+  <div class="particle"
+    style="left: 10%; top: 20%; width: 4px; height: 4px; animation-duration: 15s; background: var(--rcb-gold);"></div>
+  <div class="particle"
+    style="left: 80%; top: 50%; width: 6px; height: 6px; animation-duration: 20s; background: var(--rcb-red);"></div>
+  <div class="particle"
+    style="left: 40%; top: 80%; width: 3px; height: 3px; animation-duration: 12s; background: var(--rcb-gold);"></div>
+  <div class="particle"
+    style="left: 25%; top: 10%; width: 5px; height: 5px; animation-duration: 18s; background: rgba(227, 24, 55, 0.6);">
+  </div>
+  <div class="particle"
+    style="left: 65%; top: 30%; width: 4px; height: 4px; animation-duration: 22s; background: var(--rcb-gold);"></div>
+  <div class="particle"
+    style="left: 15%; top: 60%; width: 7px; height: 7px; animation-duration: 16s; background: var(--rcb-red);"></div>
+  <div class="particle"
+    style="left: 90%; top: 15%; width: 3px; height: 3px; animation-duration: 14s; background: rgba(212, 175, 55, 0.5);">
+  </div>
+  <div class="particle"
+    style="left: 50%; top: 45%; width: 5px; height: 5px; animation-duration: 19s; background: var(--rcb-gold);"></div>
+  <div class="particle"
+    style="left: 30%; top: 70%; width: 4px; height: 4px; animation-duration: 17s; background: var(--rcb-red);"></div>
+  <div class="particle"
+    style="left: 70%; top: 85%; width: 6px; height: 6px; animation-duration: 21s; background: rgba(227, 24, 55, 0.4);">
+  </div>
+  <div class="particle"
+    style="left: 5%; top: 40%; width: 3px; height: 3px; animation-duration: 13s; background: var(--rcb-gold);"></div>
+  <div class="particle"
+    style="left: 95%; top: 65%; width: 5px; height: 5px; animation-duration: 23s; background: rgba(212, 175, 55, 0.7);">
+  </div>
+
   <header>
-    <nav class="container">
-      <div class="brand">Jayanth C</div>
-      <div class="hidden md:flex gap-6 items-center">
-        <a class="nav-link" href="#home">Home</a>
-        <a class="nav-link" href="#about">About</a>
-        <a class="nav-link" href="#skills">Skills</a>
-        <a class="nav-link" href="#projects">Projects</a>
-        <a class="nav-link" href="#blog">Blog</a>
-        <a class="nav-link" href="#education">Education</a>
-        <a class="nav-link" href="#contact">Contact</a>
+    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center h-20">
+
+      <div class="text-3xl font-bold italic leading-none cursor-none">
+        <span class="text-[#E31837] drop-shadow-md">ROYAL</span>
+        <span class="text-[#D4AF37] drop-shadow-md">CHALLENGERS</span>
+        <div class="text-sm text-gray-400 not-italic tracking-wider font-sans mt-1">JAYANTH C's PORTFOLIO</div>
       </div>
-    </nav>
+
+      <nav class="hidden md:flex gap-8 items-end pb-2">
+        <a href="#home" class="jersey-link group text-center">
+          <div class="jersey-icon"><span class="j-num">18</span></div>
+          <div class="text-[10px] text-gray-500 mt-2 tracking-widest group-hover:text-white transition-colors">HOME
+          </div>
+        </a>
+        <a href="#about" class="jersey-link group text-center">
+          <div class="jersey-icon"><span class="j-num">17</span></div>
+          <div class="text-[10px] text-gray-500 mt-2 tracking-widest group-hover:text-white transition-colors">PROFILE
+          </div>
+        </a>
+        <a href="#skills" class="jersey-link group text-center">
+          <div class="jersey-icon"><span class="j-num">333</span></div>
+          <div class="text-[10px] text-gray-500 mt-2 tracking-widest group-hover:text-white transition-colors">STATS
+          </div>
+        </a>
+        <a href="#education" class="jersey-link group text-center">
+          <div class="jersey-icon"><span class="j-num">19</span></div>
+          <div class="text-[10px] text-gray-500 mt-2 tracking-widest group-hover:text-white transition-colors">ACADEMY
+          </div>
+        </a>
+        <a href="#projects" class="jersey-link group text-center">
+          <div class="jersey-icon"><span class="j-num">97</span></div>
+          <div class="text-[10px] text-gray-500 mt-2 tracking-widest group-hover:text-white transition-colors">REPLAYS
+          </div>
+        </a>
+        <a href="#contact" class="jersey-link group text-center">
+          <div class="jersey-icon"><span class="j-num">3</span></div>
+          <div class="text-[10px] text-gray-500 mt-2 tracking-widest group-hover:text-white transition-colors">CONTACT
+          </div>
+        </a>
+      </nav>
+    </div>
   </header>
 
-  <main class="pt-28 relative z-10">
-    <!-- HERO -->
-    <section id="home">
-      <div class="container text-center" data-aos="fade-up">
-        <h1 class="neon text-5xl md:text-7xl font-extrabold mb-4">Jayanth C</h1>
-        <p class="text-lg" style="color:var(--muted)">AI Developer • Full-stack • Explainable ML enthusiast</p>
-        <div class="mt-6 flex justify-center gap-4">
-          <a href="https://github.com/JayanthC6" class="btn btn-primary">GitHub</a>
-          <a href="https://www.linkedin.com/in/jayanthc18/" class="btn btn-primary">LinkedIn</a>
-          <a href="mail-Id:iconicno18@gmail.com" class="btn btn-secondary">Email</a>
-          <a href="jayant_resume (2).pdf" class="btn btn-secondary" download>Download Resume</a>
+  <main class="pt-32">
+
+    <section id="home" class="min-h-screen flex flex-col justify-center items-center text-center px-4 relative"
+      style="padding-bottom: 6rem;">
+      <div data-aos="fade-up" data-aos-duration="1000">
+        <p class="text-[#D4AF37] text-xl tracking-[0.5em] font-bold mb-4">CAPTAIN</p>
+        <h1 class="text-8xl md:text-[10rem] font-black italic leading-none mb-6">
+          JAYANTH <span class="text-[#E31837]">C</span>
+        </h1>
+        <p class="text-2xl text-gray-300 font-light max-w-2xl mx-auto leading-relaxed">
+          Full-Stack Developer. Python Expert. <br> <span class="text-white font-semibold">Building Intelligent
+            Solutions with AI-Powered Tools.</span>
+        </p>
+
+        <div class="mt-12 flex gap-6 justify-center">
+          <a href="cv_jayanth.pdf" download class="btn-play">
+            <i class="fas fa-file-download mr-2"></i> TEAM SHEET
+          </a>
+          <a href="#projects" class="btn-play outline">
+            WATCH HIGHLIGHTS
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- ABOUT -->
-    <section id="about">
-      <div class="container" data-aos="fade-up">
-        <h2 class="text-3xl font-bold gradient-text mb-6 text-center">About Me</h2>
-        <p style="color:var(--muted); max-width:760px; margin:0 auto; line-height:1.6;">
-          I'm Jayanth C, a passionate AI developer and final-year MCA student at Bangalore Institute of Technology. I
-          specialize in building intelligent applications using Python, Flask, and deep learning frameworks like
-          TensorFlow and PyTorch. My current focus is on Explainable AI, aiming to create models that are not only
-          accurate but also interpretable and trustworthy. I enjoy working on real-world problems, collaborating with
-          teams, and continuously learning new technologies. When I'm not coding, I love reading about the latest AI
-          research and exploring new tech trends.
-        </p>
+    <section id="about" class="py-24" style="padding-top: 15rem;">
+      <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-12 items-center">
+
+        <div class="flex justify-center" data-aos="zoom-in">
+          <div
+            class="relative w-64 h-80 bg-gradient-to-b from-[#E31837] to-[#000] rounded-3xl border-4 border-[#D4AF37] shadow-[0_0_50px_rgba(227,24,55,0.3)] flex flex-col items-center justify-center">
+            <div class="text-[#D4AF37] text-8xl font-black font-mono opacity-80">JC</div>
+            <div class="text-white mt-4 text-2xl font-bold tracking-widest">CAPTAIN</div>
+          </div>
+        </div>
+
+        <div class="md:col-span-2" data-aos="fade-left">
+          <h2 class="section-title">PLAYER PROFILE</h2>
+          <div class="scorecard">
+            <p class="text-xl text-gray-300 leading-relaxed font-light">
+              I'm <strong class="text-[#D4AF37]">Jayanth C</strong>, opening batsman for Team AI. Currently playing my
+              final season (MCA) at <span class="text-[#E31837]">Bangalore Institute of Technology</span>.
+              <br><br>
+              Just as RCB plays bold, I code bold. I build full-stack applications using <strong>Python, JavaScript,
+                Flask, and Node.js</strong>. My specialty is the "Power Play" of modern development — <strong>AI-Powered
+                Tools & REST APIs</strong> — creating intelligent solutions that are fast, scalable, and user-friendly.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="py-24 bg-black/30">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="section-title">PERFORMANCE STATS</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-10">
+          <div class="scorecard" data-aos="fade-up">
+            <h3 class="border-b border-gray-700 pb-4 mb-6"><i class="fas fa-code text-[#E31837] mr-3"></i>PROGRAMMING
+            </h3>
+
+            <div class="space-y-8">
+              <div>
+                <div class="text-lg tracking-wide mb-1">
+                  <span class="text-[#D4AF37] font-bold">PYTHON</span>
+                </div>
+                <div class="run-meter-bg">
+                  <div class="run-meter-fill" style="width:100%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="text-lg tracking-wide mb-1">
+                  <span class="text-white font-bold">JAVASCRIPT</span>
+                </div>
+                <div class="run-meter-bg">
+                  <div class="run-meter-fill" style="width:100%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="text-lg tracking-wide mb-1">
+                  <span class="text-white font-bold">JAVA / C</span>
+                </div>
+                <div class="run-meter-bg">
+                  <div class="run-meter-fill" style="width:100%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="text-lg tracking-wide mb-1">
+                  <span class="text-white font-bold">SQL</span>
+                </div>
+                <div class="run-meter-bg">
+                  <div class="run-meter-fill" style="width:100%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="scorecard" data-aos="fade-up" data-aos-delay="100">
+            <h3 class="border-b border-gray-700 pb-4 mb-6"><i class="fas fa-server text-[#E31837] mr-3"></i>BACKEND DEV
+            </h3>
+            <div class="grid grid-cols-2 gap-4">
+              <div
+                class="p-4 rounded-xl bg-black/40 border border-[#333] text-center hover:border-[#E31837] transition duration-300">
+                <div class="text-2xl font-bold text-white">FLASK</div>
+                <div class="text-xs text-gray-500 mt-1">PYTHON</div>
+              </div>
+              <div
+                class="p-4 rounded-xl bg-black/40 border border-[#333] text-center hover:border-[#D4AF37] transition duration-300">
+                <div class="text-2xl font-bold text-white">NODE.JS</div>
+                <div class="text-xs text-gray-500 mt-1">RUNTIME</div>
+              </div>
+              <div
+                class="p-4 rounded-xl bg-black/40 border border-[#333] text-center hover:border-[#E31837] transition duration-300">
+                <div class="text-2xl font-bold text-white">EXPRESS</div>
+                <div class="text-xs text-gray-500 mt-1">FRAMEWORK</div>
+              </div>
+              <div
+                class="p-4 rounded-xl bg-black/40 border border-[#333] text-center hover:border-[#D4AF37] transition duration-300">
+                <div class="text-2xl font-bold text-white">REST API</div>
+                <div class="text-xs text-gray-500 mt-1">ARCHITECTURE</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="scorecard" data-aos="fade-up" data-aos-delay="200">
+            <h3 class="border-b border-gray-700 pb-4 mb-6"><i class="fas fa-toolbox text-[#E31837] mr-3"></i>THE ARSENAL
+            </h3>
+            <div class="grid grid-cols-2 gap-4">
+              <div
+                class="p-4 rounded-xl bg-black/40 border border-[#333] text-center hover:border-[#E31837] transition duration-300">
+                <div class="text-2xl font-bold text-white">MYSQL</div>
+                <div class="text-xs text-gray-500 mt-1">DATABASE</div>
+              </div>
+              <div
+                class="p-4 rounded-xl bg-black/40 border border-[#333] text-center hover:border-[#D4AF37] transition duration-300">
+                <div class="text-2xl font-bold text-white">MONGODB</div>
+                <div class="text-xs text-gray-500 mt-1">NOSQL</div>
+              </div>
+              <div
+                class="p-4 rounded-xl bg-black/40 border border-[#333] text-center hover:border-[#E31837] transition duration-300">
+                <div class="text-2xl font-bold text-white">GIT</div>
+                <div class="text-xs text-gray-500 mt-1">VERSION CONTROL</div>
+              </div>
+              <div
+                class="p-4 rounded-xl bg-black/40 border border-[#333] text-center hover:border-[#D4AF37] transition duration-300">
+                <div class="text-2xl font-bold text-white">REACT</div>
+                <div class="text-xs text-gray-500 mt-1">FRONTEND</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education" class="py-24">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="section-title">TRAINING GROUND</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="scorecard group" data-aos="fade-up">
+            <div class="absolute top-0 right-0 bg-[#D4AF37] text-black text-[10px] font-bold px-3 py-1 rounded-bl-lg">
+              CURRENT SEASON</div>
+            <div class="mb-4">
+              <div class="text-2xl font-bold text-[#D4AF37] mb-2">Master of Computer Applications</div>
+              <div class="text-sm text-gray-400 mb-1">MCA - Computer Science</div>
+              <div class="text-white font-semibold mb-2">Bangalore Institute of Technology, Bengaluru</div>
+              <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-700">
+                <span class="text-gray-400 text-sm">2024 – Present</span>
+                <span class="text-[#E31837] font-bold text-lg">CGPA: 8.78</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="scorecard group" data-aos="fade-up" data-aos-delay="100">
+            <div class="mb-4">
+              <div class="text-2xl font-bold text-white mb-2">Bachelor of Computer Applications</div>
+              <div class="text-sm text-gray-400 mb-1">BCA - Computer Science</div>
+              <div class="text-white font-semibold mb-2">VET First Grade College, Bengaluru</div>
+              <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-700">
+                <span class="text-gray-400 text-sm">2021 – 2024</span>
+                <span class="text-[#D4AF37] font-bold text-lg">CGPA: 8.6</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="py-24">
+      <div class="max-w-7xl mx-auto px-6">
+        <h2 class="section-title">MATCH HIGHLIGHTS</h2>
+
+        <div class="grid md:grid-cols-3 gap-8 mt-10">
+          <div class="scorecard group" data-aos="fade-up">
+            <div class="absolute top-0 right-0 bg-[#E31837] text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg">
+              MAN OF THE MATCH</div>
+            <div class="text-4xl mb-4 opacity-80 group-hover:scale-110 transition duration-500">🧠</div>
+            <h3 class="mb-2">NeuroSymbolic AI</h3>
+            <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+              Combining Deep Learning (Power) with Symbolic Logic (Technique) for Explainable Brain Tumor Diagnosis.
+            </p>
+            <div class="flex gap-2">
+              <button onclick="openModal('m-neuro')"
+                class="flex-1 py-3 rounded-lg border border-[#333] text-sm text-gray-300 hover:bg-[#D4AF37] hover:text-black hover:border-[#D4AF37] transition-all font-bold">VIEW
+                REPLAY</button>
+              <a href="https://github.com/JayanthC6/NeuroSymbolic-AI-System-For-Explainable-Brain-Tumour-Analysis"
+                target="_blank"
+                class="flex-1 py-3 rounded-lg border border-[#E31837] text-sm text-[#E31837] hover:bg-[#E31837] hover:text-white transition-all font-bold flex items-center justify-center">
+                <i class="fas fa-code mr-2"></i>SCOREBOARD
+              </a>
+            </div>
+          </div>
+
+          <div class="scorecard group" data-aos="fade-up" data-aos-delay="100">
+            <div class="text-4xl mb-4 opacity-80 group-hover:scale-110 transition duration-500">📊</div>
+            <h3 class="mb-2">Smart Attendance</h3>
+            <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+              A solid partnership between Flask & MySQL. Role-based access control to manage the stadium crowd
+              (students).
+            </p>
+            <div class="flex gap-2">
+              <button onclick="openModal('m-att')"
+                class="flex-1 py-3 rounded-lg border border-[#333] text-sm text-gray-300 hover:bg-[#E31837] hover:text-white hover:border-[#E31837] transition-all font-bold">VIEW
+                REPLAY</button>
+              <a href="https://github.com/JayanthC6/Smart-Attendance-Tracker" target="_blank"
+                class="flex-1 py-3 rounded-lg border border-[#D4AF37] text-sm text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all font-bold flex items-center justify-center">
+                <i class="fas fa-code mr-2"></i>SCOREBOARD
+              </a>
+            </div>
+          </div>
+
+          <div class="scorecard group" data-aos="fade-up" data-aos-delay="200">
+            <div class="text-4xl mb-4 opacity-80 group-hover:scale-110 transition duration-500">🌾</div>
+            <h3 class="mb-2">Crop Suggestion</h3>
+            <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+              Reading the pitch (Soil) conditions using Image Processing to suggest the best shot (Crop) for the farmer.
+            </p>
+            <div class="flex gap-2">
+              <button onclick="openModal('m-crop')"
+                class="flex-1 py-3 rounded-lg border border-[#333] text-sm text-gray-300 hover:bg-[#D4AF37] hover:text-black hover:border-[#D4AF37] transition-all font-bold">VIEW
+                REPLAY</button>
+              <a href="https://github.com/JayanthC6/farmer-crop-suggestion-system" target="_blank"
+                class="flex-1 py-3 rounded-lg border border-[#E31837] text-sm text-[#E31837] hover:bg-[#E31837] hover:text-white transition-all font-bold flex items-center justify-center">
+                <i class="fas fa-code mr-2"></i>SCOREBOARD
+              </a>
+            </div>
+          </div>
+
+          <div class="scorecard group" data-aos="fade-up" data-aos-delay="300">
+            <div class="text-4xl mb-4 opacity-80 group-hover:scale-110 transition duration-500">💹</div>
+            <h3 class="mb-2">Crypto Tracker</h3>
+            <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+              ReactJS dashboard tracking the run-rate of cryptocurrencies in real-time. High volatility match!
+            </p>
+            <div class="flex gap-2">
+              <button onclick="openModal('m-crypto')"
+                class="flex-1 py-3 rounded-lg border border-[#333] text-sm text-gray-300 hover:bg-[#E31837] hover:text-white hover:border-[#E31837] transition-all font-bold">VIEW
+                REPLAY</button>
+              <a href="https://github.com/JayanthC6/Crypto_Currency_Price_Tracker" target="_blank"
+                class="flex-1 py-3 rounded-lg border border-[#D4AF37] text-sm text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all font-bold flex items-center justify-center">
+                <i class="fas fa-code mr-2"></i>SCOREBOARD
+              </a>
+            </div>
+          </div>
+          <div class="scorecard group" data-aos="fade-up" data-aos-delay="400">
+            <div class="text-4xl mb-4 opacity-80 group-hover:scale-110 transition duration-500">🏥</div>
+            <h3 class="mb-2">Appointment Sys</h3>
+            <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+              Classic Test Cricket. Pure C programming. Managing records without any GUI flashiness.
+            </p>
+            <div class="flex gap-2">
+              <button onclick="openModal('m-appoint')"
+                class="flex-1 py-3 rounded-lg border border-[#333] text-sm text-gray-300 hover:bg-[#D4AF37] hover:text-black hover:border-[#D4AF37] transition-all font-bold">VIEW
+                REPLAY</button>
+              <a href="https://github.com/JayanthC6/appointment-c-repo" target="_blank"
+                class="flex-1 py-3 rounded-lg border border-[#E31837] text-sm text-[#E31837] hover:bg-[#E31837] hover:text-white transition-all font-bold flex items-center justify-center">
+                <i class="fas fa-code mr-2"></i>SCOREBOARD
+              </a>
+            </div>
+          </div>
+          <div class="scorecard group" data-aos="fade-up" data-aos-delay="500">
+            <div class="absolute top-0 right-0 bg-[#D4AF37] text-black text-[10px] font-bold px-3 py-1 rounded-bl-lg">
+              NEW SIGNING</div>
+            <div class="text-4xl mb-4 opacity-80 group-hover:scale-110 transition duration-500">🤝</div>
+            <h3 class="mb-2">Task Manager</h3>
+            <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+              Full-stack collaborative platform. Team coordination like a well-oiled cricket squad. Real-time updates!
+            </p>
+            <div class="flex gap-2">
+              <button onclick="openModal('m-task')"
+                class="flex-1 py-3 rounded-lg border border-[#333] text-sm text-gray-300 hover:bg-[#D4AF37] hover:text-black hover:border-[#D4AF37] transition-all font-bold">VIEW
+                REPLAY</button>
+              <a href="https://github.com/JayanthC6/collaborative-task-manager" target="_blank"
+                class="flex-1 py-3 rounded-lg border border-[#D4AF37] text-sm text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all font-bold flex items-center justify-center">
+                <i class="fas fa-code mr-2"></i>SCOREBOARD
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="py-32 text-center relative overflow-hidden">
+      <div
+        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#E31837] opacity-10 blur-[100px] rounded-full pointer-events-none">
       </div>
 
-      <!-- SKILLS -->
-      <section id="skills">
-        <div class="container" data-aos="fade-right">
-          <h2 class="text-3xl font-bold gradient-text mb-6 text-center">Skills</h2>
-
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Programming Languages -->
-            <div class="card">
-              <h3 class="font-semibold mb-3">Programming Languages</h3>
-              <div class="flex flex-wrap gap-2">
-                <span class="skill-badge">Python</span>
-                <span class="skill-badge">Java</span>
-                <span class="skill-badge">C</span>
-                <span class="skill-badge">JavaScript</span>
-                <span class="skill-badge">HTML/CSS</span>
-                <span class="skill-badge">SQL</span>
-              </div>
-
-              <div class="mt-4 space-y-3">
-                <div>
-                  <div class="flex justify-between text-sm"><span>Python (ML & Backend)</span><span
-                      style="color:var(--muted)"></span></div>
-                  <div class="progress mt-2"><i style="width:100%"></i></div>
-                </div>
-                <div>
-                  <div class="flex justify-between text-sm"><span>C Programming</span><span
-                      style="color:var(--muted)"></span></div>
-                  <div class="progress mt-2"><i style="width:100%"></i></div>
-                </div>
-                <div>
-                  <div class="flex justify-between text-sm"><span>JavaScript / React</span><span
-                      style="color:var(--muted)"></span></div>
-                  <div class="progress mt-2"><i style="width:100%"></i></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Tools -->
-            <div class="card">
-              <h3 class="font-semibold mb-3">Tools & Frameworks</h3>
-              <div class="flex flex-wrap gap-2">
-                <span class="skill-badge">Flask</span>
-                <span class="skill-badge">Django</span>
-                <span class="skill-badge">TensorFlow / PyTorch</span>
-                <span class="skill-badge">MySQL</span>
-                <span class="skill-badge">Git & GitHub</span>
-                <span class="skill-badge">Tableau</span>
-                <span class="skill-badge">VS Code</span>
-              </div>
-
-              <div class="mt-4 space-y-3">
-                <div>
-                  <div class="flex justify-between text-sm"><span>Flask / Backend</span><span
-                      style="color:var(--muted)"></span></div>
-                  <div class="progress mt-2"><i style="width:100%"></i></div>
-                </div>
-                <div>
-                  <div class="flex justify-between text-sm"><span>Deep Learning</span><span
-                      style="color:var(--muted)"></span></div>
-                  <div class="progress mt-2"><i style="width:100%"></i></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Soft Skills -->
-            <div class="card">
-              <h3 class="font-semibold mb-3">Soft Skills</h3>
-              <ul class="text-sm" style="color:var(--muted);">
-                <li class="mb-2">Problem Solving & Analytical Thinking</li>
-                <li class="mb-2">Team Collaboration & Communication</li>
-                <li class="mb-2">Research & Literature Review</li>
-                <li class="mb-2">Product-oriented Development Mindset</li>
-                <li class="mb-2">Time Management & Iterative Delivery</li>
-              </ul>
-            </div>
-          </div>
+      <div class="relative z-10" data-aos="zoom-in">
+        <h2 class="gradient-text text-6xl font-bold mb-6">READY TO PLAY?</h2>
+        <p class="text-xl text-gray-400 mb-10 max-w-xl mx-auto">
+          I am open to Internships and Collabs. Let's build a winning partnership.
+        </p>
+        <div class="flex justify-center gap-6">
+          <a href="mailto:iconicno18@gmail.com" class="btn-play">EMAIL ME</a>
+          <a href="https://www.linkedin.com/in/jayanthc18/" class="btn-play outline">LINKEDIN</a>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- PROJECTS SECTION (Updated and Fixed) -->
-      <section id="projects" class="relative z-20 py-20">
-        <div class="container mx-auto px-6" data-aos="fade-up">
-          <h2 class="text-4xl font-bold gradient-text mb-12 text-center">Projects</h2>
-
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-            <!-- Neurosymbolic AI -->
-            <div
-              class="project-card card bg-[#0a0f14cc] border border-cyan-800/30 hover:border-cyan-400/50 transition-all">
-              <h3 class="font-semibold gradient-text mb-2">🧠 Neurosymbolic AI for Explainable Brain Tumor Diagnosis
-              </h3>
-              <p class="text-sm text-gray-300 mb-4">
-                Final-year MCA project combining CNNs and symbolic reasoning to produce explainable brain tumor
-                diagnoses
-                from MRI scans.
-                <strong>Status:</strong> In Progress.
-              </p>
-              <div class="flex gap-3">
-                <button class="btn btn-primary flex-1" onclick="openModal('m-neuro')">View Details</button>
-                <a href="https://github.com/JayanthC6" target="_blank" class="btn btn-secondary flex-1 text-center">View
-                  Code</a>
-              </div>
-            </div>
-
-            <!-- Smart Attendance Tracker -->
-            <div
-              class="project-card card bg-[#0a0f14cc] border border-cyan-800/30 hover:border-cyan-400/50 transition-all">
-              <h3 class="font-semibold gradient-text mb-2">📊 Smart Attendance Tracker</h3>
-              <p class="text-sm text-gray-300 mb-4">
-                Flask + MySQL role-based web app for subject-wise attendance management with analytics-ready schema.
-                Admins can modify attendance; students can only view records.
-              </p>
-              <div class="flex gap-3">
-                <button class="btn btn-primary flex-1" onclick="openModal('m-att')">View Details</button>
-                <a href="https://github.com/JayanthC6" target="_blank" class="btn btn-secondary flex-1 text-center">View
-                  Code</a>
-              </div>
-            </div>
-
-            <!-- Farm Crop Suggestion -->
-            <div
-              class="project-card card bg-[#0a0f14cc] border border-cyan-800/30 hover:border-cyan-400/50 transition-all">
-              <h3 class="font-semibold gradient-text mb-2">🌾 Farm Crop Suggestion System</h3>
-              <p class="text-sm text-gray-300 mb-4">
-                Flask-based system that analyzes soil images using heuristic image processing and provides intelligent
-                crop recommendations based on environmental factors.
-              </p>
-              <div class="flex gap-3">
-                <button class="btn btn-primary flex-1" onclick="openModal('m-crop')">View Details</button>
-                <a href="https://github.com/JayanthC6" target="_blank" class="btn btn-secondary flex-1 text-center">View
-                  Code</a>
-              </div>
-            </div>
-
-            <!-- Appointment Booking -->
-            <div
-              class="project-card card bg-[#0a0f14cc] border border-cyan-800/30 hover:border-cyan-400/50 transition-all">
-              <h3 class="font-semibold gradient-text mb-2">🏥 Appointment Booking System (Hospital)</h3>
-              <p class="text-sm text-gray-300 mb-4">
-                CLI-based C program that allows booking, viewing, and cancelling hospital appointments.
-                Strengthened skills in file handling, structures, and arrays in C programming.
-              </p>
-              <div class="flex gap-3">
-                <button class="btn btn-primary flex-1" onclick="openModal('m-appoint')">View Details</button>
-                <a href="https://github.com/JayanthC6" target="_blank" class="btn btn-secondary flex-1 text-center">View
-                  Code</a>
-              </div>
-            </div>
-
-            <!-- Crypto Tracker -->
-            <div
-              class="project-card card bg-[#0a0f14cc] border border-cyan-800/30 hover:border-cyan-400/50 transition-all">
-              <h3 class="font-semibold gradient-text mb-2">💹 Crypto Currency Price Tracker</h3>
-              <p class="text-sm text-gray-300 mb-4">
-                A React.js-based application that tracks live cryptocurrency prices and displays real-time analytics
-                using
-                charts and APIs for market trends.
-              </p>
-              <div class="flex gap-3">
-                <button class="btn btn-primary flex-1" onclick="openModal('m-crypto')">View Details</button>
-                <a href="https://github.com/JayanthC6" target="_blank" class="btn btn-secondary flex-1 text-center">View
-                  Code</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Add this small CSS to ensure buttons are clickable above background -->
-      <style>
-        #vanta-bg {
-          z-index: -10 !important;
-        }
-
-        /* Keep background behind everything */
-        .project-card {
-          position: relative;
-          z-index: 20;
-        }
-
-        .btn {
-          cursor: pointer;
-        }
-
-        .btn-primary {
-          background: linear-gradient(90deg, #00bcd4, #007bff);
-          color: #fff;
-          transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-          background: linear-gradient(90deg, #00ffe1, #00b3ff);
-          box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
-        }
-
-        .btn-secondary {
-          border: 1px solid #00b3ff;
-          color: #00b3ff;
-        }
-
-        .btn-secondary:hover {
-          background-color: #00b3ff;
-          color: black;
-        }
-
-        /* Fix: Make particle background non-interactive */
-        #particles-js {
-          pointer-events: none;
-          z-index: 0;
-        }
-
-        section,
-        .card-bg,
-        button,
-        a {
-          position: relative;
-          z-index: 2;
-        }
-      </style>
-
-
-      <!-- BLOG -->
-      <section id="blog">
-        <div class="container" data-aos="fade-up">
-          <h2 class="text-3xl font-bold gradient-text mb-6 text-center">Blog</h2>
-
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Blog 1 -->
-            <article class="card">
-              <h3 class="font-semibold mb-2">NeuroSymbolic AI — Final Year Project (In Progress)</h3>
-              <p style="color:var(--muted); font-size:0.95rem;">
-                I am currently working on my final year MCA project called <strong>NeuroSymbolic AI for Explainable
-                  Brain
-                  Tumour diagnosis through MRI scans</strong> using Python, deep learning, and Explainable AI libraries.
-                I
-                have reviewed almost 10 research papers related to this project. This is a real-world problem: the goal
-                is
-                to build models doctors can trust by providing clear explanations alongside predictions.
-              </p>
-            </article>
-
-            <!-- Blog 2 -->
-            <article class="card">
-              <h3 class="font-semibold mb-2">Smart Attendance Tracker — What I Learned</h3>
-              <p style="color:var(--muted); font-size:0.95rem;">
-                I built the Smart Attendance Tracker during my 2nd semester of MCA. Through this project I learned
-                practical full-stack skills — building REST endpoints in Flask, designing relational schemas in MySQL,
-                and
-                styling responsive interfaces with Bootstrap. I implemented role-based access (admin vs student), report
-                generation, and learned about query optimization and secure session handling. The project deepened my
-                understanding of end-to-end product workflows.
-              </p>
-            </article>
-
-            <!-- Blog 3 -->
-            <article class="card">
-              <h3 class="font-semibold mb-2">Appointment Booking System (C) — Fundamentals</h3>
-              <p style="color:var(--muted); font-size:0.95rem;">
-                I implemented an Appointment Booking System in C that taught me low-level programming concepts
-                thoroughly
-                — structures, unions, arrays, file I/O, and modular code. Building the CLI and managing persistent
-                records
-                improved my grasp on memory management and program architecture.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- EDUCATION -->
-      <section id="education">
-        <div class="container text-center" data-aos="fade-up">
-          <h2 class="text-3xl font-bold gradient-text mb-4">Education</h2>
-          <p style="color:var(--muted)">Master of Computer Applications (MCA) — Bangalore Institute of
-            Technology(Ongoing), Bangalore | CGPA: 8.78 | Dec 2024 - Present
-            <br>Bachelor of Computer Applications (BCA) — Vasavi Education Trust(VET), Bangalore | CGPA: 8.6 | Oct 2021
-            - Sept 2024
-          </p>
-        </div>
-      </section>
-
-      <!-- Certifications Section -->
-      <section id="certifications" class="py-20" data-aos="fade-up">
-        <h2 class="text-4xl font-bold text-center section-heading mb-12 gradient-text">Certifications</h2>
-
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-
-          <!-- Certification 1 -->
-          <div
-            class="card-bg p-6 border border-cyan-400/30 hover:border-cyan-400 transition-all duration-300 hover:shadow-[0_0_20px_#00ffff50]"
-            data-aos="zoom-in">
-            <h3 class="text-xl font-semibold text-cyan-400 mb-2">Oracle Cloud Infrastructure (OCI) Foundations Associate
-            </h3>
-            <p class="text-text-muted text-sm">Learned the fundamentals of Oracle Cloud services, architecture, and
-              cloud-native computing.</p>
-          </div>
-
-          <!-- Certification 2 -->
-          <div
-            class="card-bg p-6 border border-cyan-400/30 hover:border-cyan-400 transition-all duration-300 hover:shadow-[0_0_20px_#00ffff50]"
-            data-aos="zoom-in" data-aos-delay="100">
-            <h3 class="text-xl font-semibold text-cyan-400 mb-2">Introduction to Cyber Security - Cisco(2025)</h3>
-            <p class="text-text-muted text-sm">Gained understanding of network security, encryption, and risk management
-              fundamentals.</p>
-          </div>
-
-          <!-- Certification 3 -->
-          <div
-            class="card-bg p-6 border border-cyan-400/30 hover:border-cyan-400 transition-all duration-300 hover:shadow-[0_0_20px_#00ffff50]"
-            data-aos="zoom-in" data-aos-delay="200">
-            <h3 class="text-xl font-semibold text-cyan-400 mb-2">Python Foundation Certification - Infosys SpringBoard</h3>
-            <p class="text-text-muted text-sm">Developed strong programming logic in Python and practiced core DSA and
-              OOP concepts.</p>
-          </div>
-
-          <!-- Certification 4 -->
-          <div
-            class="card-bg p-6 border border-cyan-400/30 hover:border-cyan-400 transition-all duration-300 hover:shadow-[0_0_20px_#00ffff50]"
-            data-aos="zoom-in" data-aos-delay="300">
-            <h3 class="text-xl font-semibold text-cyan-400 mb-2">Programming Using Java - Infosys SpringBoard</h3>
-            <p class="text-text-muted text-sm">Acquired knowledge of OOP principles, exception handling, collections,
-              and real-world Java applications.</p>
-          </div>
-
-          <!-- Certification 5 -->
-         <!-- <div
-            class="card-bg p-6 border border-cyan-400/30 hover:border-cyan-400 transition-all duration-300 hover:shadow-[0_0_20px_#00ffff50]"
-            data-aos="zoom-in" data-aos-delay="400">
-            <h3 class="text-xl font-semibold text-cyan-400 mb-2">AI & Machine Learning Fundamentals</h3>
-            <p class="text-text-muted text-sm">Explored supervised learning, neural networks, and model evaluation using
-              scikit-learn and TensorFlow.</p>
-          </div> -->
-
-          <!-- Certification 6 -->
-          <div
-            class="card-bg p-6 border border-cyan-400/30 hover:border-cyan-400 transition-all duration-300 hover:shadow-[0_0_20px_#00ffff50]"
-            data-aos="zoom-in" data-aos-delay="500">
-            <h3 class="text-xl font-semibold text-cyan-400 mb-2">Web Development - Udemy(2025)</h3>
-            <p class="text-text-muted text-sm">Learned HTML, CSS, JavaScript, and responsive UI design with hands-on
-              website projects.</p>
-          </div>
-        </div>
-      </section>
-
-
-      <!-- CONTACT -->
-      <section id="contact">
-        <div class="container text-center" data-aos="fade-up">
-          <h2 class="text-3xl font-bold gradient-text mb-4">Contact</h2>
-          <p style="color:var(--muted); max-width:760px; margin:0 auto 18px">I’m open to internships and collaboration
-            on
-            AI/ML projects. Reach me via email or LinkedIn — I reply quickly to relevant opportunities.</p>
-          <div class="flex justify-center gap-4">
-            <a href="mailto:iconicno18@gmail.com" class="btn btn-primary">Email</a>
-            <a href="https://www.linkedin.com/in/jayanthc18/" class="btn btn-secondary">LinkedIn</a>
-          </div>
-        </div>
-      </section>
   </main>
 
-  <footer>
-    © 2025 Jayanth C — Built with code & curiosity.
+  <footer class="py-8 text-center border-t border-[#333] bg-black">
+    <p class="text-gray-600 tracking-wider text-sm">© 2026 JAYANTH C. EE SALA JOB NANDE.</p>
   </footer>
 
-  <!-- Modals (detail modals for projects) -->
   <div id="modal-wrapper"
-    style="display:none; position:fixed; inset:0; z-index:60; align-items:center; justify-content:center; background:rgba(0,0,0,0.6);">
+    class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80 backdrop-blur-sm transition-opacity">
     <div id="modal"
-      style="max-width:820px; width:96%; border-radius:12px; background:var(--card); border:1px solid var(--glass-border); padding:22px; position:relative;">
+      class="bg-[#1a1a1a] border border-[#E31837] p-8 max-w-2xl w-[90%] relative rounded-2xl shadow-[0_0_50px_rgba(227,24,55,0.2)]">
       <button onclick="closeModal()"
-        style="position:absolute; right:14px; top:10px; background:transparent; border:none; color:var(--muted); font-size:22px">✕</button>
-      <div id="modal-content" style="color:#dbeefe"></div>
+        class="absolute top-4 right-4 text-[#E31837] text-3xl hover:text-white transition">&times;</button>
+      <div id="modal-content" class="text-gray-200 font-sans leading-relaxed"></div>
     </div>
   </div>
 
-  <!-- Vanta.NET (neural grid) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
-  <script>
-    VANTA.NET({
-      el: "#vanta-bg",
-      mouseControls: true,
-      touchControls: true,
-      minHeight: 200.00,
-      minWidth: 200.00,
-      color: 0x00ffe1,
-      backgroundColor: 0x050a0f,
-      points: 14.00,
-      maxDistance: 22.00,
-      spacing: 16.00
-    });
-  </script>
-
-  <!-- AOS -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script> AOS.init({ duration: 900, once: true, easing: 'ease-in-out' }); </script>
-
-  <!-- Modal + simple interactions -->
   <script>
+    AOS.init({ duration: 800, once: true });
+
+    // Custom Cursor Logic with Enhanced Effects
+    const cursor = document.getElementById('cursor');
+    const cursorDot = document.getElementById('cursor-dot');
+
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      cursorDot.style.left = e.clientX + 'px';
+      cursorDot.style.top = e.clientY + 'px';
+    });
+
+    // Add hover effect to cursor
+    document.querySelectorAll('a, button, .jersey-link').forEach(link => {
+      link.addEventListener('mouseenter', () => {
+        cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
+        cursor.style.borderColor = '#E31837';
+        cursor.style.boxShadow = '0 0 25px rgba(227, 24, 55, 0.8)';
+      });
+      link.addEventListener('mouseleave', () => {
+        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+        cursor.style.borderColor = '#D4AF37';
+        cursor.style.boxShadow = '0 0 15px rgba(212, 175, 55, 0.6)';
+      });
+    });
+
+    // Parallax Scrolling Effect
+    // Parallax effect on scroll (disabled for home section to prevent overlap)
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      // Removed home section parallax to prevent button overlap
+    });
+
+    // Force instant scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+
+        if (targetId === '#home') {
+          // Instant jump to top
+          window.scrollTo(0, 0);
+        } else {
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            // Calculate position with header offset
+            const headerOffset = 150;
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+            // Instant scroll without any animation
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'auto'
+            });
+          }
+        }
+      });
+    });
+
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileSidebar = document.getElementById('mobileSidebar');
+    const mobileSidebarOverlay = document.getElementById('mobileSidebarOverlay');
+    const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+
+    function toggleMobileMenu() {
+      mobileSidebar.classList.toggle('active');
+      mobileSidebarOverlay.classList.toggle('active');
+
+      // Toggle hamburger icon
+      const icon = mobileMenuBtn.querySelector('i');
+      if (mobileSidebar.classList.contains('active')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    }
+
+    mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+    mobileSidebarOverlay.addEventListener('click', toggleMobileMenu);
+
+    // Close sidebar when clicking a nav item
+    mobileNavItems.forEach(item => {
+      item.addEventListener('click', () => {
+        toggleMobileMenu();
+      });
+    });
+
+    // Parallax for cards on scroll
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      document.querySelectorAll('.scorecard').forEach((card, index) => {
+        const speed = 0.05 + (index * 0.01);
+        const rect = card.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          card.style.transform = `translateY(${(scrollY - card.offsetTop) * speed}px)`;
+        }
+      });
+    });
+
+    // Mouse move parallax for cards
+    document.addEventListener('mousemove', (e) => {
+      const mouseX = e.clientX / window.innerWidth - 0.5;
+      const mouseY = e.clientY / window.innerHeight - 0.5;
+
+      document.querySelectorAll('.scorecard').forEach((card) => {
+        const rect = card.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          const rotateX = mouseY * 5;
+          const rotateY = mouseX * 5;
+          card.style.transform = `perspective(1000px) rotateX(${-rotateX}deg) rotateY(${rotateY}deg)`;
+        }
+      });
+    });
+
+    // Reset card transform on mouse leave
+    document.querySelectorAll('.scorecard').forEach(card => {
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+      });
+    });
+
+    // Modal Logic
     function openModal(id) {
       const content = {
-        "m-neuro": `<h2 style="font-size:20px; color:var(--accent1); margin-bottom:8px">NeuroSymbolic AI — Explainable Tumour Diagnosis</h2>
-                    <p style="color:var(--muted)">This MCA final-year project combines CNN-based MRI analysis with symbolic reasoning so outputs include human-readable explanations. I use Python, TensorFlow/PyTorch, and XAI libraries to extract feature attributions and map them to symbolic rules. I reviewed ~10 research papers and focused on clinical interpretability to make AI decisions trustworthy for doctors.</p>
-                    <p style="margin-top:10px; color:var(--muted)"><strong>Current work:</strong> model training, symbolic rule integration, evaluation with interpretability metrics.</p>`,
-        "m-att": `<h2 style="font-size:20px; color:var(--accent1); margin-bottom:8px">Smart Attendance Tracker</h2>
-                  <p style="color:var(--muted)">Built with Flask, MySQL and Bootstrap. It supports role-based access (Admin / Student), attendance recording, analytics-ready schema, and reporting features. Through this project I learned RESTful design, secure session handling, SQL schema optimization and building product-like workflows.</p>
-                  <p style="margin-top:10px; color:var(--muted)"><strong>Future scope:</strong> face recognition auto-attendance, realtime dashboards, deployment & monitoring.</p>`,
-        "m-crop": `<h2 style="font-size:20px; color:var(--accent1); margin-bottom:8px">Farm Crop Suggestion System</h2>
-                   <p style="color:var(--muted)">Analyzes soil images using heuristic image processing, scores candidate crops against simulated weather and water availability, and recommends options that maximize expected profitability. Tech: Python, Flask, OpenCV-style processing.</p>`,
-        "m-appoint": `<h2 style="font-size:20px; color:var(--accent1); margin-bottom:8px">Appointment Booking System (C)</h2>
-                      <p style="color:var(--muted)">A CLI program in C that lets users add/view/cancel appointments with file-based persistence. Key learning: structures, unions, arrays, modular code and file I/O for persistent storage.</p>`,
-        "m-crypto": `<h2 style="font-size:20px; color:var(--accent1); margin-bottom:8px">Crypto Currency Price Tracker</h2>
-                     <p style="color:var(--muted)">React frontend fetching live prices from public APIs, displaying dynamic charts and tables for market monitoring. Focus on efficient polling, state management, and responsive UI.</p>`
+        "m-neuro": `<h2 class="text-3xl text-[#D4AF37] font-bold mb-4 font-teko uppercase">NeuroSymbolic AI</h2>
+                    <p>Final year project. Deep Learning models are often "Black Boxes". I combined CNNs with Symbolic AI to make the diagnosis EXPLAINABLE. It's like having DRS (Decision Review System) for Brain Tumors.</p>`,
+        "m-att": `<h2 class="text-3xl text-[#D4AF37] font-bold mb-4 font-teko uppercase">Smart Attendance</h2>
+                  <p>Full Stack App. Flask (Backend) + MySQL (DB). Admins have the captain's armband (Full Control), students are the spectators (View Only).</p>`,
+        "m-crop": `<h2 class="text-3xl text-[#D4AF37] font-bold mb-4 font-teko uppercase">Crop Suggestion</h2>
+                   <p>Using Computer Vision to read the pitch (Soil) and suggest the best strategy (Crop) for maximum yield.</p>`,
+        "m-appoint": `<h2 class="text-3xl text-[#D4AF37] font-bold mb-4 font-teko uppercase">Appointment System (C)</h2>
+                      <p>CLI based C program. Managing hospital data structures manually. Old school cricket technique.</p>`,
+        "m-crypto": `<h2 class="text-3xl text-[#D4AF37] font-bold mb-4 font-teko uppercase">Crypto Tracker</h2>
+                     <p>ReactJS App. Tracking real-time market scores using APIs.</p>`,
+        "m-task": `<h2 class="text-3xl text-[#D4AF37] font-bold mb-4 font-teko uppercase">Collaborative Task Manager</h2>
+                   <p>Full-stack MERN application. Real-time team collaboration like coordinating field placements. Features task assignment, progress tracking, and live updates for seamless teamwork.</p>`
       };
-      document.getElementById('modal-content').innerHTML = content[id] || "<p>Details coming soon.</p>";
+      document.getElementById('modal-content').innerHTML = content[id] || "<p>No Replay Available.</p>";
       document.getElementById('modal-wrapper').style.display = "flex";
     }
     function closeModal() { document.getElementById('modal-wrapper').style.display = "none"; }
 
-    // Animate progress bars after scroll into view
+    // Animate run meters
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
-          e.target.querySelectorAll('.progress > i').forEach(i => {
+          e.target.querySelectorAll('.run-meter-fill').forEach(i => {
             i.style.width = i.style.width || i.getAttribute('style').match(/width:\s*([^;]+)/)[1];
           });
-          obs.unobserve(e.target);
         }
       });
-    }, { threshold: 0.45 });
-    document.querySelectorAll('.card').forEach(c => obs.observe(c));
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.scorecard').forEach(c => obs.observe(c));
   </script>
 </body>
 
