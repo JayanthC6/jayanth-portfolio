@@ -34,7 +34,6 @@
       cursor: none;
     }
 
-    /* --- CUSTOM CURSOR --- */
     #cursor {
       position: fixed;
       top: 0;
@@ -65,7 +64,6 @@
       box-shadow: 0 0 10px var(--rcb-red);
     }
 
-    /* --- 3D CRICKET STADIUM IMAGE BACKGROUND --- */
     #stadium-bg {
       position: fixed;
       inset: 0;
@@ -75,7 +73,6 @@
       transform-style: preserve-3d;
     }
 
-    /* Stadium image layer with 3D depth */
     .stadium-image {
       position: absolute;
       inset: -10%;
@@ -100,7 +97,6 @@
       }
     }
 
-    /* Dark overlay for better text contrast */
     .stadium-overlay {
       position: absolute;
       inset: 0;
@@ -116,7 +112,6 @@
       pointer-events: none;
     }
 
-    /* Vignette effect */
     #stadium-bg::before {
       content: '';
       position: absolute;
@@ -128,7 +123,6 @@
       pointer-events: none;
     }
 
-    /* Stadium floodlight glow overlay */
     #stadium-bg::after {
       content: '';
       position: absolute;
@@ -156,7 +150,6 @@
       }
     }
 
-    /* Additional floodlight beams */
     .floodlight {
       position: fixed;
       top: -10%;
@@ -207,7 +200,6 @@
       }
     }
 
-    /* Stadium field glow at bottom */
     .stadium-field {
       position: fixed;
       bottom: 0;
@@ -222,7 +214,6 @@
       mix-blend-mode: screen;
     }
 
-    /* Animated Grid overlay (pitch lines) */
     #stadium-bg::after {
       content: "";
       position: absolute;
@@ -244,7 +235,6 @@
       }
     }
 
-    /* Enhanced Floating Particles */
     .particle {
       position: fixed;
       border-radius: 50%;
@@ -271,7 +261,6 @@
       }
     }
 
-    /* --- HEADER (GLASS) with Glow --- */
     header {
       background: rgba(0, 0, 0, 0.8);
       backdrop-filter: blur(20px);
@@ -290,7 +279,6 @@
       border-bottom-color: rgba(227, 24, 55, 0.3);
     }
 
-    /* --- JERSEY ICONS with 3D Effect --- */
     .jersey-icon {
       width: 45px;
       height: 55px;
@@ -333,7 +321,6 @@
       border-radius: 0 4px 0 0;
     }
 
-    /* Enhanced Jersey Hover with 3D Rotation */
     .jersey-link:hover .jersey-icon {
       transform: translateY(-8px) rotateY(10deg);
       background: var(--rcb-gradient);
@@ -366,7 +353,6 @@
       transition: var(--transition-smooth);
     }
 
-    /* --- TYPOGRAPHY with Glow --- */
     .gradient-text {
       background: var(--gold-gradient);
       -webkit-background-clip: text;
@@ -423,7 +409,6 @@
       }
     }
 
-    /* --- CARDS (Enhanced 3D Glassmorphism) --- */
     .scorecard {
       background: var(--glass-bg);
       backdrop-filter: blur(15px);
@@ -437,7 +422,6 @@
       transform-style: preserve-3d;
     }
 
-    /* Animated gradient overlay */
     .scorecard::before {
       content: '';
       position: absolute;
@@ -481,7 +465,6 @@
       text-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
     }
 
-    /* --- BUTTONS with Enhanced Effects --- */
     .btn-play {
       background: var(--rcb-gradient);
       color: white;
@@ -562,7 +545,6 @@
       transform: scale(1.08) translateY(-2px);
     }
 
-    /* --- ANIMATED STATS BARS --- */
     .run-meter-bg {
       height: 10px;
       background: rgba(255, 255, 255, 0.1);
@@ -608,7 +590,6 @@
       }
     }
 
-    /* Scrollbar with Glow */
     ::-webkit-scrollbar {
       width: 10px;
     }
@@ -629,7 +610,6 @@
       box-shadow: 0 0 20px rgba(227, 24, 55, 0.8);
     }
 
-    /* Hero Text Animation */
     @keyframes fadeInUp {
       from {
         opacity: 0;
@@ -642,12 +622,10 @@
       }
     }
 
-    /* Parallax Effect Helper */
     .parallax {
       transition: transform 0.1s ease-out;
     }
 
-    /* Contact Section Glowing Orbs */
     #contact {
       position: relative;
     }
@@ -697,7 +675,6 @@
       }
     }
 
-    /* --- MOBILE SIDEBAR MENU --- */
     .mobile-menu-btn {
       display: none;
       position: fixed;
@@ -806,10 +783,8 @@
       }
     }
 
-    /* --- MOBILE RESPONSIVENESS --- */
     @media (max-width: 768px) {
 
-      /* Disable custom cursor on mobile */
       body {
         cursor: auto !important;
       }
@@ -819,7 +794,6 @@
         display: none !important;
       }
 
-      /* Hero section mobile fixes */
       h1 {
         font-size: 3.5rem !important;
         line-height: 1.1 !important;
@@ -833,12 +807,10 @@
         font-size: 3.5rem !important;
       }
 
-      /* Tagline mobile */
       .text-2xl {
         font-size: 1.125rem !important;
       }
 
-      /* Buttons mobile */
       .btn-play {
         padding: 0.75rem 1.5rem !important;
         font-size: 0.875rem !important;
@@ -853,7 +825,6 @@
         flex-direction: column !important;
       }
 
-      /* Navigation mobile */
       header {
         padding: 0.5rem 1rem !important;
       }
@@ -862,7 +833,6 @@
         font-size: 1.5rem !important;
       }
 
-      /* Section padding mobile */
       .py-24 {
         padding-top: 3rem !important;
         padding-bottom: 3rem !important;
@@ -873,18 +843,15 @@
         padding-bottom: 4rem !important;
       }
 
-      /* Grid mobile */
       .grid.md\:grid-cols-2,
       .grid.md\:grid-cols-3 {
         grid-template-columns: 1fr !important;
       }
 
-      /* Scorecard mobile */
       .scorecard {
         padding: 1.5rem !important;
       }
 
-      /* Project buttons mobile */
       .flex.gap-2 {
         flex-direction: column !important;
         gap: 0.5rem !important;
@@ -894,12 +861,10 @@
         width: 100% !important;
       }
 
-      /* Section title mobile */
       .section-title {
         font-size: 2rem !important;
       }
 
-      /* Jersey card mobile */
       .w-64 {
         width: 12rem !important;
       }
@@ -908,27 +873,22 @@
         height: 16rem !important;
       }
 
-      /* Contact section mobile */
       .text-6xl {
         font-size: 2.5rem !important;
       }
 
-      /* Particle system - reduce on mobile */
       .particle {
         opacity: 0.3 !important;
       }
 
-      /* Stadium background - simplify on mobile */
       .stadium-image {
         filter: brightness(0.6) !important;
       }
 
-      /* Skills grid mobile */
       .grid.grid-cols-2 {
         grid-template-columns: 1fr !important;
       }
 
-      /* Modal mobile */
       #modal {
         width: 90% !important;
         max-width: 90% !important;
@@ -936,7 +896,7 @@
       }
     }
 
-    /* Extra small devices */
+
     @media (max-width: 480px) {
       h1 {
         font-size: 2.5rem !important;
@@ -951,7 +911,6 @@
       }
     }
 
-    /* Fix section overlap on anchor navigation */
     section {
       scroll-margin-top: 150px;
     }
@@ -965,16 +924,12 @@
 </head>
 
 <body>
-
-  <!-- Mobile Menu Button -->
   <button class="mobile-menu-btn" id="mobileMenuBtn">
     <i class="fas fa-bars"></i>
   </button>
 
-  <!-- Mobile Sidebar Overlay -->
   <div class="mobile-sidebar-overlay" id="mobileSidebarOverlay"></div>
 
-  <!-- Mobile Sidebar -->
   <div class="mobile-sidebar" id="mobileSidebar">
     <a href="#home" class="mobile-nav-item">
       <div class="mobile-nav-jersey">18</div>
@@ -1005,7 +960,6 @@
   <div id="cursor"></div>
   <div id="cursor-dot"></div>
 
-  <!-- 3D Cricket Stadium Background -->
   <div id="stadium-bg">
     <div class="stadium-image"></div>
     <div class="stadium-overlay"></div>
@@ -1432,7 +1386,6 @@
   <script>
     AOS.init({ duration: 800, once: true });
 
-    // Custom Cursor Logic with Enhanced Effects
     const cursor = document.getElementById('cursor');
     const cursorDot = document.getElementById('cursor-dot');
 
@@ -1443,7 +1396,6 @@
       cursorDot.style.top = e.clientY + 'px';
     });
 
-    // Add hover effect to cursor
     document.querySelectorAll('a, button, .jersey-link').forEach(link => {
       link.addEventListener('mouseenter', () => {
         cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
@@ -1457,31 +1409,25 @@
       });
     });
 
-    // Parallax Scrolling Effect
-    // Parallax effect on scroll (disabled for home section to prevent overlap)
     window.addEventListener('scroll', () => {
       const scrolled = window.pageYOffset;
-      // Removed home section parallax to prevent button overlap
     });
 
-    // Force instant scrolling for navigation links
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href');
 
         if (targetId === '#home') {
-          // Instant jump to top
           window.scrollTo(0, 0);
         } else {
           const targetElement = document.querySelector(targetId);
           if (targetElement) {
-            // Calculate position with header offset
             const headerOffset = 150;
             const elementPosition = targetElement.getBoundingClientRect().top;
             const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-            // Instant scroll without any animation
             window.scrollTo({
               top: offsetPosition,
               behavior: 'auto'
@@ -1491,7 +1437,7 @@
       });
     });
 
-    // Mobile Menu Toggle
+
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mobileSidebar = document.getElementById('mobileSidebar');
     const mobileSidebarOverlay = document.getElementById('mobileSidebarOverlay');
@@ -1501,7 +1447,6 @@
       mobileSidebar.classList.toggle('active');
       mobileSidebarOverlay.classList.toggle('active');
 
-      // Toggle hamburger icon
       const icon = mobileMenuBtn.querySelector('i');
       if (mobileSidebar.classList.contains('active')) {
         icon.classList.remove('fa-bars');
@@ -1515,14 +1460,12 @@
     mobileMenuBtn.addEventListener('click', toggleMobileMenu);
     mobileSidebarOverlay.addEventListener('click', toggleMobileMenu);
 
-    // Close sidebar when clicking a nav item
     mobileNavItems.forEach(item => {
       item.addEventListener('click', () => {
         toggleMobileMenu();
       });
     });
 
-    // Parallax for cards on scroll
     window.addEventListener('scroll', () => {
       const scrollY = window.scrollY;
       document.querySelectorAll('.scorecard').forEach((card, index) => {
@@ -1534,7 +1477,6 @@
       });
     });
 
-    // Mouse move parallax for cards
     document.addEventListener('mousemove', (e) => {
       const mouseX = e.clientX / window.innerWidth - 0.5;
       const mouseY = e.clientY / window.innerHeight - 0.5;
@@ -1549,14 +1491,12 @@
       });
     });
 
-    // Reset card transform on mouse leave
     document.querySelectorAll('.scorecard').forEach(card => {
       card.addEventListener('mouseleave', () => {
         card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
       });
     });
 
-    // Modal Logic
     function openModal(id) {
       const content = {
         "m-neuro": `<h2 class="text-3xl text-[#D4AF37] font-bold mb-4 font-teko uppercase">NeuroSymbolic AI</h2>
@@ -1577,7 +1517,6 @@
     }
     function closeModal() { document.getElementById('modal-wrapper').style.display = "none"; }
 
-    // Animate run meters
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
