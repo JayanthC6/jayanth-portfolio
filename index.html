@@ -1360,13 +1360,53 @@
           I am open to Internships and Collabs. Let's build a winning partnership.
         </p>
         <div class="flex justify-center gap-6">
-          <a href="mailto:iconicno18@gmail.com" class="btn-play">EMAIL ME</a>
+          <button onclick="openContactForm()" class="btn-play">EMAIL ME</button>
           <a href="https://www.linkedin.com/in/jayanthc18/" class="btn-play outline">LINKEDIN</a>
         </div>
       </div>
     </section>
 
   </main>
+
+  <div id="contact-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80 backdrop-blur-sm">
+    <div
+      class="bg-[#1a1a1a] border-2 border-[#E31837] p-8 max-w-lg w-[90%] relative rounded-2xl shadow-[0_0_50px_rgba(227,24,55,0.3)]">
+      <button onclick="closeContactForm()"
+        class="absolute top-4 right-4 text-[#E31837] text-3xl hover:text-white transition">&times;</button>
+
+      <h3 class="text-3xl font-bold text-[#D4AF37] mb-2 text-center">GET IN TOUCH</h3>
+      <p class="text-gray-400 text-center mb-6">Let's build a winning partnership!</p>
+
+      <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-4">
+        <input type="hidden" name="access_key" value="d7a5e0a0-4ba2-4b5d-901e-e99391db06af">
+        <input type="hidden" name="subject" value="New Contact from Portfolio">
+        <input type="hidden" name="from_name" value="Portfolio Contact Form">
+
+        <div>
+          <label class="block text-[#D4AF37] mb-2 text-sm font-bold">NAME</label>
+          <input type="text" name="name" required
+            class="w-full bg-black/50 border border-[#333] rounded-lg px-4 py-3 text-white focus:border-[#E31837] focus:outline-none transition">
+        </div>
+
+        <div>
+          <label class="block text-[#D4AF37] mb-2 text-sm font-bold">EMAIL</label>
+          <input type="email" name="email" required
+            class="w-full bg-black/50 border border-[#333] rounded-lg px-4 py-3 text-white focus:border-[#E31837] focus:outline-none transition">
+        </div>
+
+        <div>
+          <label class="block text-[#D4AF37] mb-2 text-sm font-bold">MESSAGE</label>
+          <textarea name="message" required rows="4"
+            class="w-full bg-black/50 border border-[#333] rounded-lg px-4 py-3 text-white focus:border-[#E31837] focus:outline-none transition resize-none"></textarea>
+        </div>
+
+        <button type="submit" class="w-full btn-play">
+          SEND MESSAGE
+        </button>
+      </form>
+    </div>
+  </div>
+
 
   <footer class="py-8 text-center border-t border-[#333] bg-black">
     <p class="text-gray-600 tracking-wider text-sm">© 2026 JAYANTH C. EE SALA JOB NANDE.</p>
@@ -1495,6 +1535,51 @@
       card.addEventListener('mouseleave', () => {
         card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
       });
+    });
+
+    function openContactForm() {
+      const modal = document.getElementById('contact-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeContactForm() {
+      const modal = document.getElementById('contact-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    document.getElementById('contact-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const form = e.target;
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+
+      submitBtn.textContent = 'SENDING...';
+      submitBtn.disabled = true;
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          alert('✅ Message sent successfully! I\'ll get back to you soon.');
+          form.reset();
+          closeContactForm();
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch (error) {
+        alert('❌ Oops! Something went wrong. Please email me directly at: jayanthjayanthc96@gmail.com');
+      } finally {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }
     });
 
     function openModal(id) {
