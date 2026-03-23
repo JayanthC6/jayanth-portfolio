@@ -21,6 +21,8 @@
       --gold-gradient: linear-gradient(135deg, #FFD700 0%, #D4AF37 100%);
       --glass-bg: rgba(20, 20, 20, 0.65);
       --glass-border: rgba(255, 255, 255, 0.08);
+      --surface-strong: rgba(8, 8, 8, 0.78);
+      --surface-soft: rgba(255, 255, 255, 0.03);
       --transition-smooth: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
       --neon-glow: 0 0 20px rgba(227, 24, 55, 0.5), 0 0 40px rgba(227, 24, 55, 0.3);
     }
@@ -32,6 +34,18 @@
       color: white;
       overflow-x: hidden;
       cursor: none;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 12% 12%, rgba(227, 24, 55, 0.18), transparent 45%),
+        radial-gradient(circle at 85% 18%, rgba(212, 175, 55, 0.14), transparent 45%),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02), transparent 40%);
     }
 
     #cursor {
@@ -263,8 +277,8 @@
 
     header {
       background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--glass-border);
       position: fixed;
       width: 100%;
@@ -397,6 +411,16 @@
       animation: underlineGlow 2s ease-in-out infinite;
     }
 
+    .section-subtitle {
+      max-width: 620px;
+      margin: 0 auto;
+      font-family: 'Teko', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.04em;
+      color: #b7bcc7;
+      line-height: 1.5;
+    }
+
     @keyframes underlineGlow {
 
       0%,
@@ -410,9 +434,11 @@
     }
 
     .scorecard {
-      background: var(--glass-bg);
-      backdrop-filter: blur(15px);
+      background:
+        linear-gradient(165deg, rgba(255, 255, 255, 0.03), transparent 45%),
+        var(--glass-bg);
       -webkit-backdrop-filter: blur(15px);
+      backdrop-filter: blur(15px);
       border: 1px solid var(--glass-border);
       border-radius: 20px;
       padding: 30px;
@@ -443,11 +469,78 @@
     }
 
     .scorecard:hover {
-      transform: translateY(-10px) scale(1.03) rotateX(2deg);
+      transform: translateY(-8px) scale(1.02) rotateX(1deg);
       border-color: var(--rcb-gold);
       box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7),
         0 0 30px rgba(212, 175, 55, 0.3),
         inset 0 0 20px rgba(227, 24, 55, 0.1);
+    }
+
+    .saas-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      background: var(--surface-strong);
+      color: #f3f4f6;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+    }
+
+    .hero-kpis {
+      margin-top: 2.5rem;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      width: min(780px, 100%);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-kpi {
+      background: linear-gradient(165deg, rgba(227, 24, 55, 0.12), rgba(0, 0, 0, 0.55));
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 1rem;
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      transition: var(--transition-smooth);
+    }
+
+    .hero-kpi:hover {
+      border-color: rgba(212, 175, 55, 0.6);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(227, 24, 55, 0.2);
+    }
+
+    .hero-kpi .value {
+      font-family: 'Russo One', sans-serif;
+      font-size: 1.6rem;
+      color: #fff;
+      letter-spacing: 0.03em;
+    }
+
+    .hero-kpi .label {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #d1d5db;
+    }
+
+    #projects .scorecard {
+      background:
+        linear-gradient(180deg, rgba(227, 24, 55, 0.08) 0%, rgba(0, 0, 0, 0.58) 45%),
+        linear-gradient(140deg, rgba(255, 255, 255, 0.04), transparent 42%);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    #projects .scorecard:hover {
+      border-color: rgba(212, 175, 55, 0.68);
+      box-shadow: 0 24px 44px rgba(0, 0, 0, 0.62), 0 0 0 1px rgba(212, 175, 55, 0.2);
     }
 
     .scorecard h3 {
@@ -702,6 +795,7 @@
       width: 280px;
       height: 100vh;
       background: linear-gradient(135deg, rgba(0, 0, 0, 0.98) 0%, rgba(20, 20, 20, 0.98) 100%);
+      -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
       border-left: 2px solid var(--rcb-gold);
       z-index: 999;
@@ -837,6 +931,17 @@
       .py-24 {
         padding-top: 3rem !important;
         padding-bottom: 3rem !important;
+      }
+
+      .hero-kpis {
+        grid-template-columns: 1fr !important;
+        gap: 0.75rem !important;
+        margin-top: 1.5rem !important;
+      }
+
+      .saas-chip {
+        font-size: 0.75rem !important;
+        letter-spacing: 0.08em !important;
       }
 
       .py-32 {
@@ -1057,6 +1162,11 @@
     <section id="home" class="min-h-screen flex flex-col justify-center items-center text-center px-4 relative"
       style="padding-bottom: 6rem;">
       <div data-aos="fade-up" data-aos-duration="1000">
+        <div class="mb-5 flex flex-wrap justify-center gap-3">
+          <span class="saas-chip"><i class="fas fa-star text-[#D4AF37]"></i>AI Builder</span>
+          <span class="saas-chip"><i class="fas fa-bolt text-[#E31837]"></i>Full-Stack Engineer</span>
+          <span class="saas-chip"><i class="fas fa-globe text-[#D4AF37]"></i>Shipping Live Products</span>
+        </div>
         <p class="text-[#D4AF37] text-xl tracking-[0.5em] font-bold mb-4">CAPTAIN</p>
         <h1 class="text-8xl md:text-[10rem] font-black italic leading-none mb-6">
           JAYANTH <span class="text-[#E31837]">C</span>
@@ -1073,6 +1183,21 @@
           <a href="#projects" class="btn-play outline">
             WATCH HIGHLIGHTS
           </a>
+        </div>
+
+        <div class="hero-kpis" data-aos="fade-up" data-aos-delay="250">
+          <div class="hero-kpi">
+            <div class="value text-[#D4AF37]">7+</div>
+            <div class="label">Projects Built</div>
+          </div>
+          <div class="hero-kpi">
+            <div class="value text-[#E31837]">2</div>
+            <div class="label">Live Deployments</div>
+          </div>
+          <div class="hero-kpi">
+            <div class="value text-white">MCA</div>
+            <div class="label">Final Year</div>
+          </div>
         </div>
       </div>
     </section>
@@ -1246,7 +1371,11 @@
 
     <section id="projects" class="py-24">
       <div class="max-w-7xl mx-auto px-6">
-        <h2 class="section-title">MATCH HIGHLIGHTS</h2>
+        <div class="text-center" data-aos="fade-up">
+          <h2 class="section-title">MATCH HIGHLIGHTS</h2>
+          <p class="section-subtitle">A modern lineup of AI and full-stack products, from research-grade systems to
+            live SaaS-style deployments.</p>
+        </div>
 
         <div class="grid md:grid-cols-3 gap-8 mt-10">
           <div class="scorecard group" data-aos="fade-up">
@@ -1262,7 +1391,7 @@
                 class="flex-1 py-3 rounded-lg border border-[#333] text-sm text-gray-300 hover:bg-[#D4AF37] hover:text-black hover:border-[#D4AF37] transition-all font-bold">VIEW
                 REPLAY</button>
               <a href="https://github.com/JayanthC6/NeuroSymbolic-AI-System-For-Explainable-Brain-Tumour-Analysis"
-                target="_blank"
+                target="_blank" rel="noopener noreferrer"
                 class="flex-1 py-3 rounded-lg border border-[#E31837] text-sm text-[#E31837] hover:bg-[#E31837] hover:text-white transition-all font-bold flex items-center justify-center">
                 <i class="fas fa-code mr-2"></i>SCOREBOARD
               </a>
@@ -1280,7 +1409,7 @@
               <button onclick="openModal('m-att')"
                 class="flex-1 py-3 rounded-lg border border-[#333] text-sm text-gray-300 hover:bg-[#E31837] hover:text-white hover:border-[#E31837] transition-all font-bold">VIEW
                 REPLAY</button>
-              <a href="https://github.com/JayanthC6/Smart-Attendance-Tracker" target="_blank"
+              <a href="https://github.com/JayanthC6/Smart-Attendance-Tracker" target="_blank" rel="noopener noreferrer"
                 class="flex-1 py-3 rounded-lg border border-[#D4AF37] text-sm text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all font-bold flex items-center justify-center">
                 <i class="fas fa-code mr-2"></i>SCOREBOARD
               </a>
@@ -1297,7 +1426,7 @@
               <button onclick="openModal('m-crop')"
                 class="flex-1 py-3 rounded-lg border border-[#333] text-sm text-gray-300 hover:bg-[#D4AF37] hover:text-black hover:border-[#D4AF37] transition-all font-bold">VIEW
                 REPLAY</button>
-              <a href="https://github.com/JayanthC6/farmer-crop-suggestion-system" target="_blank"
+              <a href="https://github.com/JayanthC6/farmer-crop-suggestion-system" target="_blank" rel="noopener noreferrer"
                 class="flex-1 py-3 rounded-lg border border-[#E31837] text-sm text-[#E31837] hover:bg-[#E31837] hover:text-white transition-all font-bold flex items-center justify-center">
                 <i class="fas fa-code mr-2"></i>SCOREBOARD
               </a>
@@ -1314,7 +1443,7 @@
               <button onclick="openModal('m-crypto')"
                 class="flex-1 py-3 rounded-lg border border-[#333] text-sm text-gray-300 hover:bg-[#E31837] hover:text-white hover:border-[#E31837] transition-all font-bold">VIEW
                 REPLAY</button>
-              <a href="https://github.com/JayanthC6/Crypto_Currency_Price_Tracker" target="_blank"
+              <a href="https://github.com/JayanthC6/Crypto_Currency_Price_Tracker" target="_blank" rel="noopener noreferrer"
                 class="flex-1 py-3 rounded-lg border border-[#D4AF37] text-sm text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all font-bold flex items-center justify-center">
                 <i class="fas fa-code mr-2"></i>SCOREBOARD
               </a>
@@ -1330,7 +1459,7 @@
               <button onclick="openModal('m-appoint')"
                 class="flex-1 py-3 rounded-lg border border-[#333] text-sm text-gray-300 hover:bg-[#D4AF37] hover:text-black hover:border-[#D4AF37] transition-all font-bold">VIEW
                 REPLAY</button>
-              <a href="https://github.com/JayanthC6/appointment-c-repo" target="_blank"
+              <a href="https://github.com/JayanthC6/appointment-c-repo" target="_blank" rel="noopener noreferrer"
                 class="flex-1 py-3 rounded-lg border border-[#E31837] text-sm text-[#E31837] hover:bg-[#E31837] hover:text-white transition-all font-bold flex items-center justify-center">
                 <i class="fas fa-code mr-2"></i>SCOREBOARD
               </a>
@@ -1348,7 +1477,7 @@
               <button onclick="openModal('m-task')"
                 class="flex-1 py-3 rounded-lg border border-[#333] text-sm text-gray-300 hover:bg-[#D4AF37] hover:text-black hover:border-[#D4AF37] transition-all font-bold">VIEW
                 REPLAY</button>
-              <a href="https://github.com/JayanthC6/collaborative-task-manager" target="_blank"
+              <a href="https://github.com/JayanthC6/collaborative-task-manager" target="_blank" rel="noopener noreferrer"
                 class="flex-1 py-3 rounded-lg border border-[#D4AF37] text-sm text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all font-bold flex items-center justify-center">
                 <i class="fas fa-code mr-2"></i>SCOREBOARD
               </a>
@@ -1368,11 +1497,11 @@
               <button onclick="openModal('m-live')"
                 class="flex-1 py-3 rounded-lg border border-[#333] text-sm text-gray-300 hover:bg-[#D4AF37] hover:text-black hover:border-[#D4AF37] transition-all font-bold">VIEW
                 REPLAY</button>
-              <a href="https://github.com/JayanthC6/ai-resume-optimizer" target="_blank"
+              <a href="https://github.com/JayanthC6/ai-resume-optimizer" target="_blank" rel="noopener noreferrer"
                 class="flex-1 py-3 rounded-lg border border-[#E31837] text-sm text-[#E31837] hover:bg-[#E31837] hover:text-white transition-all font-bold flex items-center justify-center">
                 <i class="fas fa-code mr-2"></i>SCOREBOARD
               </a>
-              <a href="https://ai-resume-optimizer-1-z3xt.onrender.com/" target="_blank"
+              <a href="https://ai-resume-optimizer-1-z3xt.onrender.com/" target="_blank" rel="noopener noreferrer"
                 class="col-span-2 py-3 rounded-lg border border-[#D4AF37] text-sm text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all font-bold flex items-center justify-center">
                 <i class="fas fa-up-right-from-square mr-2"></i>LIVE
               </a>
