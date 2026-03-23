@@ -1354,6 +1354,30 @@
               </a>
             </div>
           </div>
+
+          <div class="scorecard group" data-aos="fade-up" data-aos-delay="600">
+            <div class="absolute top-0 right-0 bg-[#E31837] text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg">
+              LIVE NOW</div>
+            <div class="text-4xl mb-4 opacity-80 group-hover:scale-110 transition duration-500">🚀</div>
+            <h3 class="mb-2">HiredLens</h3>
+            <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+              AI-powered resume enhancement tool that improves ATS readiness with smarter wording, keyword alignment,
+              and role-focused optimization suggestions.
+            </p>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="openModal('m-live')"
+                class="flex-1 py-3 rounded-lg border border-[#333] text-sm text-gray-300 hover:bg-[#D4AF37] hover:text-black hover:border-[#D4AF37] transition-all font-bold">VIEW
+                REPLAY</button>
+              <a href="https://github.com/JayanthC6/ai-resume-optimizer" target="_blank"
+                class="flex-1 py-3 rounded-lg border border-[#E31837] text-sm text-[#E31837] hover:bg-[#E31837] hover:text-white transition-all font-bold flex items-center justify-center">
+                <i class="fas fa-code mr-2"></i>SCOREBOARD
+              </a>
+              <a href="https://ai-resume-optimizer-1-z3xt.onrender.com/" target="_blank"
+                class="col-span-2 py-3 rounded-lg border border-[#D4AF37] text-sm text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all font-bold flex items-center justify-center">
+                <i class="fas fa-up-right-from-square mr-2"></i>LIVE
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1677,7 +1701,9 @@
         "m-crypto": `<h2 class="text-3xl text-[#D4AF37] font-bold mb-4 font-teko uppercase">Crypto Tracker</h2>
                      <p>ReactJS App. Tracking real-time market scores using APIs.</p>`,
         "m-task": `<h2 class="text-3xl text-[#D4AF37] font-bold mb-4 font-teko uppercase">Collaborative Task Manager</h2>
-                   <p>Full-stack MERN application. Real-time team collaboration like coordinating field placements. Features task assignment, progress tracking, and live updates for seamless teamwork.</p>`
+                   <p>Full-stack MERN application. Real-time team collaboration like coordinating field placements. Features task assignment, progress tracking, and live updates for seamless teamwork.</p>`,
+        "m-live": `<h2 class="text-3xl text-[#D4AF37] font-bold mb-4 font-teko uppercase">AI-Resume-Optimizer</h2>
+             <p>Built and deployed a live AI resume optimization platform that helps users improve resume quality for specific job roles. It provides practical enhancement tips around keyword matching, content clarity, and ATS-friendly structure.</p>`
       };
       document.getElementById('modal-content').innerHTML = content[id] || "<p>No Replay Available.</p>";
       document.getElementById('modal-wrapper').style.display = "flex";
